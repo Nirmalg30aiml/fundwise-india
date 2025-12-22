@@ -8,6 +8,9 @@ import Index from "./pages/Index";
 import Learn from "./pages/Learn";
 import Screener from "./pages/Screener";
 import Calculator from "./pages/Calculator";
+import SIPCalculator from "./pages/SIPCalculator";
+import GoalPlanner from "./pages/GoalPlanner";
+import SuccessStories from "./pages/SuccessStories";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import AdminLogin from "./pages/admin/AdminLogin";
@@ -28,6 +31,9 @@ const App = () => (
             <Route path="/learn" element={<Learn />} />
             <Route path="/screener" element={<Screener />} />
             <Route path="/calculator" element={<Calculator />} />
+            <Route path="/sip-calculator" element={<SIPCalculator />} />
+            <Route path="/goal-planner" element={<GoalPlanner />} />
+            <Route path="/success-stories" element={<SuccessStories />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/admin/login" element={<AdminLogin />} />

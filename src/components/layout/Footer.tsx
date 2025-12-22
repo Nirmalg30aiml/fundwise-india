@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
 import { TrendingUp, ExternalLink } from 'lucide-react';
-
 export function Footer() {
-  return (
-    <footer className="bg-card border-t border-border">
+  return <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
@@ -12,8 +10,7 @@ export function Footer() {
               <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="font-display font-bold text-xl">
-                MF<span className="text-primary">Gyan</span>
+              <span className="font-display font-bold text-xl">LearnFinance<span className="text-primary">Gyan</span>
               </span>
             </Link>
             <p className="text-sm text-muted-foreground">
@@ -69,12 +66,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a 
-                  href="https://investor.sebi.gov.in/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
-                >
+                <a href="https://investor.sebi.gov.in/" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1">
                   SEBI Investor Education
                   <ExternalLink className="w-3 h-3" />
                 </a>
@@ -100,25 +92,14 @@ export function Footer() {
             © {new Date().getFullYear()} MFGyan. All rights reserved. Educational purposes only.
           </p>
           <div className="flex items-center gap-4">
-            <a 
-              href="https://www.sebi.gov.in/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-xs text-muted-foreground hover:text-primary transition-colors"
-            >
+            <a href="https://www.sebi.gov.in/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">
               SEBI Registered
             </a>
-            <a 
-              href="https://www.amfiindia.com/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-xs text-muted-foreground hover:text-primary transition-colors"
-            >
+            <a href="https://www.amfiindia.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">
               AMFI Certified
             </a>
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 }

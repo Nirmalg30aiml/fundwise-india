@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { PhoneAuthGuard } from '@/components/auth/PhoneAuthGuard';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -58,7 +59,7 @@ interface Goal {
   inflationRate: number;
 }
 
-export default function GoalPlanner() {
+function GoalPlannerContent() {
   const [step, setStep] = useState<'select' | 'details' | 'results'>('select');
   const [selectedGoalType, setSelectedGoalType] = useState<typeof goalTypes[0] | null>(null);
   const [goals, setGoals] = useState<Goal[]>([]);
@@ -648,5 +649,13 @@ export default function GoalPlanner() {
         </div>
       </section>
     </Layout>
+  );
+}
+
+export default function GoalPlanner() {
+  return (
+    <PhoneAuthGuard>
+      <GoalPlannerContent />
+    </PhoneAuthGuard>
   );
 }

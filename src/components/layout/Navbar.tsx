@@ -11,7 +11,8 @@ import {
   Menu,
   X,
   Shield,
-  Target
+  Target,
+  Award
 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -24,9 +25,10 @@ export function Navbar() {
   const navLinks = [
     { href: '/', label: 'Home', icon: TrendingUp },
     { href: '/learn', label: 'Learn', icon: BookOpen },
-    { href: '/screener', label: 'Screener', icon: Search },
     { href: '/sip-calculator', label: 'SIP Calculator', icon: Calculator },
     { href: '/goal-planner', label: 'Goals', icon: Target },
+    { href: '/success-stories', label: 'Stories', icon: Award },
+    { href: '/screener', label: 'Screener', icon: Search },
   ];
 
   const isActive = (path: string) => location.pathname === path;

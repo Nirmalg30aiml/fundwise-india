@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react';
-import { PhoneAuthGuard } from '@/components/auth/PhoneAuthGuard';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -754,9 +753,5 @@ function GoalPlannerContent() {
 }
 
 export default function GoalPlanner() {
-  return (
-    <PhoneAuthGuard>
-      <GoalPlannerContent />
-    </PhoneAuthGuard>
-  );
+  return <GoalPlannerContent />;
 }

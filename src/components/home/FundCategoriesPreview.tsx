@@ -7,14 +7,25 @@ import {
   Shuffle, 
   Target,
   Factory,
+  Shield,
+  BarChart3,
+  TrendingDown,
   ArrowRight
 } from 'lucide-react';
 
 const categories = [
   {
+    name: 'Index Funds',
+    icon: BarChart3,
+    description: 'Low-cost funds that mirror market indices like Nifty 50 or Sensex.',
+    color: 'text-secondary',
+    bgColor: 'bg-secondary/10',
+    sebiRule: 'Tracks benchmark index passively',
+  },
+  {
     name: 'Large Cap',
     icon: Building2,
-    description: 'Top 100 companies by market cap - the established giants like Tata, Reliance, HDFC.',
+    description: 'Top 100 companies by market cap - established giants like Tata, Reliance.',
     color: 'text-primary',
     bgColor: 'bg-primary/10',
     sebiRule: '80% in top 100 companies',
@@ -30,34 +41,58 @@ const categories = [
   {
     name: 'Small Cap',
     icon: Rocket,
-    description: 'Companies ranked 251+ - young, ambitious companies with high growth potential.',
+    description: 'Companies ranked 251+ - ambitious companies with high growth potential.',
     color: 'text-warning-amber',
     bgColor: 'bg-warning-amber/10',
     sebiRule: '65% in companies ranked 251+',
   },
   {
-    name: 'Flexi Cap',
-    icon: Shuffle,
-    description: 'Flexibility to invest across market caps based on fund manager\'s strategy.',
-    color: 'text-secondary',
-    bgColor: 'bg-secondary/10',
-    sebiRule: '65% in equity, flexible allocation',
-  },
-  {
     name: 'Multi Cap',
     icon: Target,
-    description: 'Balanced exposure across market caps with minimum allocation rules.',
+    description: 'Balanced exposure with mandatory 25% in each market cap segment.',
     color: 'text-primary',
     bgColor: 'bg-primary/10',
     sebiRule: '25% each in large, mid, small cap',
   },
   {
-    name: 'Sectoral/Thematic',
+    name: 'Flexi Cap',
+    icon: Shuffle,
+    description: 'Complete flexibility for fund manager to invest across market caps.',
+    color: 'text-secondary',
+    bgColor: 'bg-secondary/10',
+    sebiRule: '65% in equity, flexible allocation',
+  },
+  {
+    name: 'Contra Funds',
+    icon: TrendingDown,
+    description: 'Invests in out-of-favor stocks with turnaround potential.',
+    color: 'text-info-cyan',
+    bgColor: 'bg-info-cyan/10',
+    sebiRule: 'Contrarian investment strategy',
+  },
+  {
+    name: 'Focused Funds',
+    icon: Target,
+    description: 'Concentrated portfolio of maximum 30 high-conviction stocks.',
+    color: 'text-warning-amber',
+    bgColor: 'bg-warning-amber/10',
+    sebiRule: 'Maximum 30 stocks',
+  },
+  {
+    name: 'Thematic/Sectoral',
     icon: Factory,
     description: 'Concentrated investments in specific sectors like banking, pharma, or IT.',
     color: 'text-destructive',
     bgColor: 'bg-destructive/10',
     sebiRule: '80% in specified sector/theme',
+  },
+  {
+    name: 'ELSS Funds',
+    icon: Shield,
+    description: 'Tax-saving equity funds with 3-year lock-in under Section 80C.',
+    color: 'text-primary',
+    bgColor: 'bg-primary/10',
+    sebiRule: '80% in equity, 3-year lock-in',
   },
 ];
 
@@ -75,22 +110,22 @@ export function FundCategoriesPreview() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-12">
           {categories.map((category, index) => (
             <div 
               key={category.name}
-              className="feature-card group animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="feature-card group animate-slide-up p-4"
+              style={{ animationDelay: `${index * 0.05}s` }}
             >
-              <div className={`w-14 h-14 rounded-xl ${category.bgColor} flex items-center justify-center mb-4 transition-transform group-hover:scale-110`}>
-                <category.icon className={`w-7 h-7 ${category.color}`} />
+              <div className={`w-12 h-12 rounded-xl ${category.bgColor} flex items-center justify-center mb-3 transition-transform group-hover:scale-110`}>
+                <category.icon className={`w-6 h-6 ${category.color}`} />
               </div>
               
-              <h3 className="text-xl font-semibold mb-2">{category.name}</h3>
-              <p className="text-muted-foreground text-sm mb-4">{category.description}</p>
+              <h3 className="text-lg font-semibold mb-2">{category.name}</h3>
+              <p className="text-muted-foreground text-xs mb-3 line-clamp-2">{category.description}</p>
               
-              <div className="sebi-badge">
-                <span>SEBI: {category.sebiRule}</span>
+              <div className="sebi-badge text-xs">
+                <span>{category.sebiRule}</span>
               </div>
             </div>
           ))}

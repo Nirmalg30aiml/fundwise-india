@@ -34,6 +34,23 @@ import {
 
 const fundCategories = [
   {
+    name: 'Index Funds',
+    icon: BarChart3,
+    color: 'text-secondary',
+    bgColor: 'bg-secondary/10',
+    borderColor: 'border-l-secondary',
+    sebiDefinition: 'Passively managed funds that replicate a market index (Nifty 50, Sensex, Nifty Next 50) by holding the same stocks in same proportion.',
+    example: 'Instead of a fund manager picking stocks, the fund simply mirrors an index. If Nifty 50 has 50 stocks, the fund holds those exact 50 stocks.',
+    riskLevel: 'Low to Moderate',
+    suitableFor: 'Beginners and long-term investors who prefer low-cost, hassle-free investing',
+    keyPoints: [
+      'Lowest expense ratios (0.1-0.5%)',
+      'No fund manager bias or stock picking risk',
+      'Warren Buffett recommends for most investors',
+      'Best for 5+ year investment horizon'
+    ]
+  },
+  {
     name: 'Large Cap Funds',
     icon: Building2,
     color: 'text-primary',
@@ -57,7 +74,7 @@ const fundCategories = [
     bgColor: 'bg-info-cyan/10',
     borderColor: 'border-l-info-cyan',
     sebiDefinition: 'Funds that invest at least 65% of their assets in companies ranked 101-250 by market capitalization.',
-    example: 'Mid cap companies are like growing teenagers - they\'ve proven themselves but still have significant room to grow. Companies like Page Industries or Astral Ltd.',
+    example: 'Mid cap companies are like growing teenagers - they\'ve proven themselves but still have significant room to grow.',
     riskLevel: 'Moderately High',
     suitableFor: 'Investors willing to take higher risk for potentially higher returns',
     keyPoints: [
@@ -74,14 +91,31 @@ const fundCategories = [
     bgColor: 'bg-warning-amber/10',
     borderColor: 'border-l-warning-amber',
     sebiDefinition: 'Funds that invest at least 65% of their assets in companies ranked 251 and below by market capitalization.',
-    example: 'Small cap companies are young, ambitious startups and growing businesses. High risk but can deliver exceptional returns - think of early investors in companies like DMart.',
+    example: 'Small cap companies are young, ambitious businesses with high growth potential - think early investors in DMart.',
     riskLevel: 'High',
-    suitableFor: 'Aggressive investors with long investment horizon and high risk appetite',
+    suitableFor: 'Aggressive investors with long horizon and high risk appetite',
     keyPoints: [
       'Highest growth potential',
       'Most volatile category',
       'Requires longer holding period',
       'Ideal for 7+ year investment horizon'
+    ]
+  },
+  {
+    name: 'Multi Cap Funds',
+    icon: Target,
+    color: 'text-primary',
+    bgColor: 'bg-primary/10',
+    borderColor: 'border-l-primary',
+    sebiDefinition: 'Funds that must invest at least 25% each in large cap, mid cap, and small cap companies (minimum 75% in equity).',
+    example: 'Like a balanced meal - you get a fixed portion of each. The 25-25-25 rule ensures exposure to all market segments.',
+    riskLevel: 'Moderate to High',
+    suitableFor: 'Investors seeking balanced exposure across all market segments',
+    keyPoints: [
+      'SEBI mandated 25% minimum in each segment',
+      'Automatic diversification across caps',
+      'Less dependent on fund manager timing',
+      'Ideal for 5-7 year investment horizon'
     ]
   },
   {
@@ -91,7 +125,7 @@ const fundCategories = [
     bgColor: 'bg-secondary/10',
     borderColor: 'border-l-secondary',
     sebiDefinition: 'Funds that invest at least 65% in equity with flexibility to invest across market capitalizations without any minimum allocation.',
-    example: 'Like a skilled chef who picks the best ingredients regardless of the category - the fund manager has complete freedom to allocate based on market conditions.',
+    example: 'Like a skilled chef who picks the best ingredients - the fund manager has complete freedom based on market conditions.',
     riskLevel: 'Moderate to High',
     suitableFor: 'Investors who trust fund manager\'s expertise and want diversified exposure',
     keyPoints: [
@@ -102,55 +136,71 @@ const fundCategories = [
     ]
   },
   {
-    name: 'Multi Cap Funds',
+    name: 'Contra Funds',
+    icon: TrendingDown,
+    color: 'text-info-cyan',
+    bgColor: 'bg-info-cyan/10',
+    borderColor: 'border-l-info-cyan',
+    sebiDefinition: 'Funds that follow a contrarian investment strategy - buying stocks that are currently out of favor but have potential.',
+    example: 'Like buying winter clothes in summer sale - investing in good companies when they\'re temporarily unpopular and cheap.',
+    riskLevel: 'High',
+    suitableFor: 'Patient investors who can wait for value to unlock over time',
+    keyPoints: [
+      'Buys stocks that are currently undervalued',
+      'Requires patience as turnaround takes time',
+      'Can outperform during market recoveries',
+      'Ideal for 5+ year investment horizon'
+    ]
+  },
+  {
+    name: 'Focused Funds',
     icon: Target,
-    color: 'text-primary',
-    bgColor: 'bg-primary/10',
-    borderColor: 'border-l-primary',
-    sebiDefinition: 'Funds that must invest at least 25% each in large cap, mid cap, and small cap companies (minimum 75% in equity).',
-    example: 'Think of it as a balanced meal - you get a fixed portion of each food group. The 25-25-25 rule ensures you\'re exposed to all market segments.',
-    riskLevel: 'Moderate to High',
-    suitableFor: 'Investors seeking balanced exposure across all market segments',
+    color: 'text-warning-amber',
+    bgColor: 'bg-warning-amber/10',
+    borderColor: 'border-l-warning-amber',
+    sebiDefinition: 'Funds that invest in maximum 30 stocks. High conviction portfolio with concentrated bets on best ideas.',
+    example: 'Instead of spreading across 50+ stocks, focused funds put money in their top 30 best ideas for higher impact.',
+    riskLevel: 'High',
+    suitableFor: 'Investors comfortable with concentrated portfolios and higher volatility',
     keyPoints: [
-      'Mandatory diversification across caps',
-      'SEBI mandated 25% minimum in each segment',
-      'Less dependent on fund manager timing',
-      'Ideal for 5-7 year investment horizon'
+      'Maximum 30 stocks in portfolio',
+      'High conviction, concentrated bets',
+      'Can outperform or underperform significantly',
+      'Ideal for 5+ year investment horizon'
     ]
   },
   {
-    name: 'Index Funds',
-    icon: BarChart3,
-    color: 'text-secondary',
-    bgColor: 'bg-secondary/10',
-    borderColor: 'border-l-secondary',
-    sebiDefinition: 'Funds that replicate a market index (like Nifty 50, Sensex, Nifty Next 50) by holding the same stocks in the same proportion.',
-    example: 'Instead of a fund manager picking stocks, the fund simply mirrors an index. If Nifty 50 has 50 stocks, the fund holds those exact 50 stocks.',
-    riskLevel: 'Moderate',
-    suitableFor: 'Investors who believe in passive investing and want low-cost, diversified market exposure',
-    keyPoints: [
-      'Lowest expense ratios (0.1-0.5%)',
-      'No fund manager bias or stock picking risk',
-      'Performance tracks the index closely',
-      'Ideal for beginners and long-term investors',
-      'Warren Buffett recommends index funds for most investors'
-    ]
-  },
-  {
-    name: 'Sectoral/Thematic Funds',
+    name: 'Thematic/Sectoral Funds',
     icon: Factory,
     color: 'text-destructive',
     bgColor: 'bg-destructive/10',
     borderColor: 'border-l-destructive',
-    sebiDefinition: 'Funds that invest at least 80% of their assets in a specific sector (like banking, pharma, IT) or theme (infrastructure, consumption).',
-    example: 'Like betting on a specific industry to outperform. If you believe India\'s banking sector will boom, you invest in a Banking Fund.',
+    sebiDefinition: 'Funds that invest at least 80% in a specific sector (banking, pharma, IT) or theme (infrastructure, consumption, ESG).',
+    example: 'Like betting on a specific industry. If you believe banking sector will boom, invest in a Banking Fund.',
     riskLevel: 'Very High',
     suitableFor: 'Experienced investors with strong sector views and high risk tolerance',
     keyPoints: [
-      'Concentrated exposure in one sector',
-      'Can give exceptional returns if sector performs',
-      'Can also lead to significant losses',
-      'Requires market timing and sector knowledge'
+      'Concentrated exposure in one sector/theme',
+      'Can give exceptional or poor returns',
+      'Requires market timing knowledge',
+      'Only for tactical allocation (5-10% of portfolio)'
+    ]
+  },
+  {
+    name: 'ELSS Funds',
+    icon: Shield,
+    color: 'text-primary',
+    bgColor: 'bg-primary/10',
+    borderColor: 'border-l-primary',
+    sebiDefinition: 'Equity Linked Savings Scheme - tax-saving mutual funds that invest at least 80% in equity with a 3-year lock-in period.',
+    example: 'Invest up to ₹1.5 lakh and claim tax deduction under Section 80C. Your money is locked for 3 years but grows tax-free.',
+    riskLevel: 'Moderate to High',
+    suitableFor: 'Anyone looking for tax-saving investment with equity exposure',
+    keyPoints: [
+      'Tax deduction up to ₹1.5 lakh under 80C',
+      'Shortest lock-in among 80C options (3 years)',
+      'Better returns potential than PPF/FD',
+      'Mandatory 3-year holding period'
     ]
   }
 ];

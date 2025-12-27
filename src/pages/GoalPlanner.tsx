@@ -57,6 +57,8 @@ interface Goal {
   expectedReturn: number;
   inflationAdjusted: boolean;
   inflationRate: number;
+  stepUpEnabled: boolean;
+  stepUpPercent: number;
 }
 
 function GoalPlannerContent() {
@@ -71,6 +73,8 @@ function GoalPlannerContent() {
     expectedReturn: 12,
     inflationAdjusted: false,
     inflationRate: 6,
+    stepUpEnabled: false,
+    stepUpPercent: 10,
   });
   const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
 
@@ -83,7 +87,7 @@ function GoalPlannerContent() {
     return `₹${value.toLocaleString('en-IN')}`;
   };
 
-  const calculateSIPRequired = (target: number, years: number, rate: number, currentSavings: number) => {
+  const calculateSIPRequired = (target: number, years: number, rate: number, currentSavings: number, stepUpEnabled: boolean = false, stepUpPercent: number = 10) => {
     const months = years * 12;
     const monthlyRate = rate / 12 / 100;
     
@@ -91,13 +95,40 @@ function GoalPlannerContent() {
     const fvCurrentSavings = currentSavings * Math.pow(1 + rate / 100, years);
     const remainingTarget = Math.max(0, target - fvCurrentSavings);
     
-    // SIP required for remaining amount
-    // M = P × ({[1 + i]^n – 1} / i) × (1 + i)
-    // P = M / ({[1 + i]^n – 1} / i × (1 + i))
     if (remainingTarget <= 0) return 0;
     
-    const factor = ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
-    return Math.ceil(remainingTarget / factor);
+    if (!stepUpEnabled) {
+      // Simple SIP calculation
+      const factor = ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+      return Math.ceil(remainingTarget / factor);
+    }
+    
+    // Step-up SIP: Binary search for initial SIP amount
+    let low = 100;
+    let high = remainingTarget / 12;
+    let bestSIP = high;
+    
+    while (low <= high) {
+      const mid = Math.floor((low + high) / 2);
+      let currentSIP = mid;
+      let fv = 0;
+      
+      for (let month = 1; month <= months; month++) {
+        if (month > 1 && (month - 1) % 12 === 0) {
+          currentSIP = currentSIP * (1 + stepUpPercent / 100);
+        }
+        fv = (fv + currentSIP) * (1 + monthlyRate);
+      }
+      
+      if (fv >= remainingTarget) {
+        bestSIP = mid;
+        high = mid - 1;
+      } else {
+        low = mid + 1;
+      }
+    }
+    
+    return Math.ceil(bestSIP);
   };
 
   const adjustedTarget = useMemo(() => {
@@ -111,24 +142,38 @@ function GoalPlannerContent() {
       adjustedTarget,
       currentGoal.timeHorizon || 10,
       currentGoal.expectedReturn || 12,
-      currentGoal.currentSavings || 0
+      currentGoal.currentSavings || 0,
+      currentGoal.stepUpEnabled || false,
+      currentGoal.stepUpPercent || 10
     );
-  }, [adjustedTarget, currentGoal.timeHorizon, currentGoal.expectedReturn, currentGoal.currentSavings]);
+  }, [adjustedTarget, currentGoal.timeHorizon, currentGoal.expectedReturn, currentGoal.currentSavings, currentGoal.stepUpEnabled, currentGoal.stepUpPercent]);
 
-  const totalInvestment = sipRequired * (currentGoal.timeHorizon || 10) * 12 + (currentGoal.currentSavings || 0);
-
-  const expectedCorpus = useMemo(() => {
+  const { totalInvestment, expectedCorpus } = useMemo(() => {
     const months = (currentGoal.timeHorizon || 10) * 12;
     const monthlyRate = (currentGoal.expectedReturn || 12) / 12 / 100;
+    const stepUpEnabled = currentGoal.stepUpEnabled || false;
+    const stepUpPercent = currentGoal.stepUpPercent || 10;
     
     // FV of current savings
     const fvSavings = (currentGoal.currentSavings || 0) * Math.pow(1 + (currentGoal.expectedReturn || 12) / 100, currentGoal.timeHorizon || 10);
     
-    // FV of SIP
-    const fvSIP = sipRequired * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+    let totalInvested = currentGoal.currentSavings || 0;
+    let fvSIP = 0;
+    let currentSIP = sipRequired;
     
-    return Math.round(fvSavings + fvSIP);
-  }, [sipRequired, currentGoal.timeHorizon, currentGoal.expectedReturn, currentGoal.currentSavings]);
+    for (let month = 1; month <= months; month++) {
+      if (stepUpEnabled && month > 1 && (month - 1) % 12 === 0) {
+        currentSIP = currentSIP * (1 + stepUpPercent / 100);
+      }
+      totalInvested += currentSIP;
+      fvSIP = (fvSIP + currentSIP) * (1 + monthlyRate);
+    }
+    
+    return {
+      totalInvestment: Math.round(totalInvested),
+      expectedCorpus: Math.round(fvSavings + fvSIP)
+    };
+  }, [sipRequired, currentGoal.timeHorizon, currentGoal.expectedReturn, currentGoal.currentSavings, currentGoal.stepUpEnabled, currentGoal.stepUpPercent]);
 
   const handleGoalTypeSelect = (goalType: typeof goalTypes[0]) => {
     setSelectedGoalType(goalType);
@@ -163,6 +208,8 @@ function GoalPlannerContent() {
       expectedReturn: currentGoal.expectedReturn || 12,
       inflationAdjusted: currentGoal.inflationAdjusted || false,
       inflationRate: currentGoal.inflationRate || 6,
+      stepUpEnabled: currentGoal.stepUpEnabled || false,
+      stepUpPercent: currentGoal.stepUpPercent || 10,
     };
 
     if (editingGoalId) {
@@ -198,6 +245,8 @@ function GoalPlannerContent() {
       expectedReturn: 12,
       inflationAdjusted: false,
       inflationRate: 6,
+      stepUpEnabled: false,
+      stepUpPercent: 10,
     });
     setSelectedGoalType(null);
     setEditingGoalId(null);
@@ -205,7 +254,7 @@ function GoalPlannerContent() {
   };
 
   const totalMonthlySIP = goals.reduce((sum, goal) => {
-    return sum + calculateSIPRequired(goal.targetAmount, goal.timeHorizon, goal.expectedReturn, goal.currentSavings);
+    return sum + calculateSIPRequired(goal.targetAmount, goal.timeHorizon, goal.expectedReturn, goal.currentSavings, goal.stepUpEnabled, goal.stepUpPercent);
   }, 0);
 
   const getGoalIcon = (typeId: string) => {
@@ -213,7 +262,7 @@ function GoalPlannerContent() {
     return type?.emoji || '🎯';
   };
 
-  const getRecommendedFunds = (years: number) => {
+  const getRecommendedFunds = (years: number, riskProfile: string) => {
     if (years < 3) {
       return {
         category: 'Short-term (< 3 years)',
@@ -229,11 +278,27 @@ function GoalPlannerContent() {
         reason: 'Mix of stability and growth for medium-term goals'
       };
     } else {
+      // Long-term recommendations based on risk profile
+      if (riskProfile === 'conservative') {
+        return {
+          category: 'Long-term (> 5 years)',
+          recommendation: 'Low-cost passive investing',
+          funds: ['Nifty 50 Index Fund', 'Sensex Index Fund', 'Large Cap Funds', 'Nifty Next 50 Index Fund'],
+          reason: 'Index funds offer low-cost, diversified exposure ideal for conservative long-term investors'
+        };
+      } else if (riskProfile === 'aggressive') {
+        return {
+          category: 'Long-term (> 5 years)',
+          recommendation: 'Growth-focused',
+          funds: ['Flexi Cap Funds', 'Mid Cap Funds', 'Small Cap Funds', 'Nifty Midcap 150 Index Fund'],
+          reason: 'Higher growth potential with mix of active and passive options'
+        };
+      }
       return {
         category: 'Long-term (> 5 years)',
-        recommendation: 'Equity-focused',
-        funds: ['Large Cap Funds', 'Flexi Cap Funds', 'Index Funds', 'Multi Cap Funds'],
-        reason: 'Time to ride out market volatility for long-term growth'
+        recommendation: 'Balanced equity exposure',
+        funds: ['Nifty 50 Index Fund', 'Flexi Cap Funds', 'Large & Mid Cap Funds', 'Multi Cap Funds'],
+        reason: 'Diversified equity exposure with index funds for cost-efficiency'
       };
     }
   };
@@ -284,7 +349,7 @@ function GoalPlannerContent() {
                   <h3 className="text-lg font-semibold mb-4">Your Goals ({goals.length})</h3>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {goals.map((goal) => {
-                      const sip = calculateSIPRequired(goal.targetAmount, goal.timeHorizon, goal.expectedReturn, goal.currentSavings);
+                      const sip = calculateSIPRequired(goal.targetAmount, goal.timeHorizon, goal.expectedReturn, goal.currentSavings, goal.stepUpEnabled, goal.stepUpPercent);
                       return (
                         <div key={goal.id} className="glass-card rounded-xl p-5">
                           <div className="flex items-start justify-between mb-3">
@@ -492,6 +557,42 @@ function GoalPlannerContent() {
                     </RadioGroup>
                   </div>
 
+                  {/* Step-up SIP */}
+                  <div className="p-4 bg-accent/50 rounded-xl">
+                    <div className="flex items-center justify-between mb-3">
+                      <Label className="flex items-center gap-2 cursor-pointer">
+                        <TrendingUp className="w-4 h-4 text-secondary" />
+                        Enable Step-up SIP
+                      </Label>
+                      <Switch
+                        checked={currentGoal.stepUpEnabled}
+                        onCheckedChange={(checked) => setCurrentGoal({ ...currentGoal, stepUpEnabled: checked })}
+                      />
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-3">
+                      Increase your SIP annually with salary increments to reach goals faster
+                    </p>
+                    {currentGoal.stepUpEnabled && (
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <span className="text-xs text-muted-foreground">Annual SIP Increase</span>
+                          <span className="text-sm font-medium text-secondary">{currentGoal.stepUpPercent}%</span>
+                        </div>
+                        <Slider
+                          value={[currentGoal.stepUpPercent || 10]}
+                          onValueChange={(v) => setCurrentGoal({ ...currentGoal, stepUpPercent: v[0] })}
+                          min={5}
+                          max={25}
+                          step={1}
+                        />
+                        <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                          <span>5%</span>
+                          <span>25%</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
                   {/* Results Preview */}
                   <div className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl border border-primary/20">
                     <div className="text-center mb-4">
@@ -585,7 +686,7 @@ function GoalPlannerContent() {
               <h3 className="text-lg font-semibold mb-4">Recommended Fund Categories</h3>
               <div className="space-y-4">
                 {goals.map((goal) => {
-                  const recommendation = getRecommendedFunds(goal.timeHorizon);
+                  const recommendation = getRecommendedFunds(goal.timeHorizon, goal.riskProfile);
                   return (
                     <div key={goal.id} className="glass-card rounded-xl p-5">
                       <div className="flex items-start gap-4">

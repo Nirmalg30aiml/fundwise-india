@@ -119,6 +119,24 @@ const fundCategories = [
     ]
   },
   {
+    name: 'Index Funds',
+    icon: BarChart3,
+    color: 'text-secondary',
+    bgColor: 'bg-secondary/10',
+    borderColor: 'border-l-secondary',
+    sebiDefinition: 'Funds that replicate a market index (like Nifty 50, Sensex, Nifty Next 50) by holding the same stocks in the same proportion.',
+    example: 'Instead of a fund manager picking stocks, the fund simply mirrors an index. If Nifty 50 has 50 stocks, the fund holds those exact 50 stocks.',
+    riskLevel: 'Moderate',
+    suitableFor: 'Investors who believe in passive investing and want low-cost, diversified market exposure',
+    keyPoints: [
+      'Lowest expense ratios (0.1-0.5%)',
+      'No fund manager bias or stock picking risk',
+      'Performance tracks the index closely',
+      'Ideal for beginners and long-term investors',
+      'Warren Buffett recommends index funds for most investors'
+    ]
+  },
+  {
     name: 'Sectoral/Thematic Funds',
     icon: Factory,
     color: 'text-destructive',
@@ -227,18 +245,37 @@ const glossaryTerms = [
     example: 'If ₹1 lakh becomes ₹2 lakh in 5 years, CAGR is ~14.87%. This is the "true" annual return accounting for compounding.',
     color: 'text-secondary',
     bgColor: 'bg-secondary/10'
+  },
+  {
+    term: 'Index Funds',
+    icon: BarChart3,
+    definition: 'Passively managed funds that replicate a stock market index like Nifty 50, Sensex, or Nifty Next 50 by holding the same stocks.',
+    whyItMatters: 'Lowest fees among equity funds (0.1-0.5%). Over 80% of active funds fail to beat their benchmark index over 10+ years.',
+    example: 'Nifty 50 Index Fund holds all 50 Nifty stocks. If Nifty rises 12%, your fund rises ~12% minus the tiny expense ratio.',
+    color: 'text-secondary',
+    bgColor: 'bg-secondary/10'
+  },
+  {
+    term: 'Step-up SIP',
+    icon: TrendingUp,
+    definition: 'A SIP that automatically increases by a fixed percentage every year, usually aligned with salary increments.',
+    whyItMatters: 'Helps you invest more as you earn more. A 10% annual step-up can nearly double your final corpus compared to flat SIP.',
+    example: 'Start with ₹5,000/month. With 10% step-up, Year 2 becomes ₹5,500, Year 3 becomes ₹6,050, and so on.',
+    color: 'text-info-cyan',
+    bgColor: 'bg-info-cyan/10'
   }
 ];
 
 const directVsRegularExamples = [
   { name: 'HDFC Flexi Cap Fund - Direct Plan', type: 'Direct', expense: '0.80%' },
   { name: 'HDFC Flexi Cap Fund - Regular Plan', type: 'Regular', expense: '1.68%' },
+  { name: 'UTI Nifty 50 Index Fund - Direct', type: 'Direct', expense: '0.18%' },
+  { name: 'UTI Nifty 50 Index Fund - Regular', type: 'Regular', expense: '0.30%' },
   { name: 'Axis Bluechip Fund Direct Growth', type: 'Direct', expense: '0.45%' },
   { name: 'Axis Bluechip Fund Regular Growth', type: 'Regular', expense: '1.28%' },
+  { name: 'HDFC Nifty Next 50 Index - Direct', type: 'Direct', expense: '0.25%' },
   { name: 'SBI Small Cap Fund Dir Growth', type: 'Direct', expense: '0.69%' },
-  { name: 'SBI Small Cap Fund Reg Growth', type: 'Regular', expense: '1.58%' },
   { name: 'Mirae Asset Large Cap Fund Direct', type: 'Direct', expense: '0.51%' },
-  { name: 'Mirae Asset Large Cap Fund Regular', type: 'Regular', expense: '1.43%' },
 ];
 
 function identifyPlanType(fundName: string): { type: 'Direct' | 'Regular'; confidence: 'high' | 'medium' } {
@@ -291,6 +328,9 @@ export default function Learn() {
           <div className="flex flex-wrap gap-3 justify-center">
             <a href="#direct-vs-regular" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
               Direct vs Regular Plans
+            </a>
+            <a href="#index-funds" className="px-4 py-2 rounded-full bg-secondary/20 hover:bg-secondary/30 text-sm font-medium transition-colors border border-secondary/30">
+              📊 Index Funds
             </a>
             <a href="#glossary" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
               MF Glossary
@@ -464,6 +504,129 @@ export default function Learn() {
                   </p>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Index Funds Section */}
+      <section id="index-funds" className="py-12 md:py-16 bg-gradient-to-br from-secondary/5 to-primary/5">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center">
+                <BarChart3 className="w-6 h-6 text-secondary" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold">Index Funds: The Smart Way to Invest</h2>
+                <p className="text-sm text-muted-foreground">Why Warren Buffett recommends index funds for most investors</p>
+              </div>
+            </div>
+
+            <div className="glass-card rounded-2xl p-6 mb-6">
+              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <Lightbulb className="w-5 h-5 text-warning-amber" />
+                What are Index Funds?
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Index funds are passively managed mutual funds that replicate a stock market index like Nifty 50, Sensex, or Nifty Next 50. 
+                Instead of a fund manager picking stocks, the fund simply holds the same stocks as the index in the same proportion.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="p-4 bg-secondary/10 rounded-xl">
+                  <h4 className="font-medium mb-2 text-secondary">Active Funds</h4>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Fund manager picks stocks</li>
+                    <li>• Higher expense ratio (1-2%)</li>
+                    <li>• Aims to beat the market</li>
+                    <li>• 80%+ fail to beat index over 10 years</li>
+                  </ul>
+                </div>
+                <div className="p-4 bg-primary/10 rounded-xl border-2 border-primary/30">
+                  <h4 className="font-medium mb-2 text-primary">Index Funds ✓</h4>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Simply mirrors the index</li>
+                    <li>• Lowest expense ratio (0.1-0.5%)</li>
+                    <li>• Aims to match the market</li>
+                    <li>• Consistent, predictable returns</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass-card rounded-2xl p-6 mb-6">
+              <h3 className="text-lg font-semibold mb-4">Popular Index Funds in India</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="p-4 bg-accent/50 rounded-xl">
+                  <div className="font-medium mb-1">Nifty 50 Index Funds</div>
+                  <p className="text-sm text-muted-foreground mb-2">Tracks top 50 companies in India</p>
+                  <div className="text-xs space-y-1">
+                    <div className="flex justify-between">
+                      <span>UTI Nifty 50 Index Fund - Direct</span>
+                      <span className="text-secondary font-medium">0.18%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>HDFC Nifty 50 Index - Direct</span>
+                      <span className="text-secondary font-medium">0.20%</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 bg-accent/50 rounded-xl">
+                  <div className="font-medium mb-1">Nifty Next 50 Index Funds</div>
+                  <p className="text-sm text-muted-foreground mb-2">The next 50 large companies after Nifty 50</p>
+                  <div className="text-xs space-y-1">
+                    <div className="flex justify-between">
+                      <span>HDFC Nifty Next 50 Index - Direct</span>
+                      <span className="text-secondary font-medium">0.25%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>UTI Nifty Next 50 Index - Direct</span>
+                      <span className="text-secondary font-medium">0.27%</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 bg-accent/50 rounded-xl">
+                  <div className="font-medium mb-1">Sensex Index Funds</div>
+                  <p className="text-sm text-muted-foreground mb-2">Tracks 30 largest BSE companies</p>
+                  <div className="text-xs space-y-1">
+                    <div className="flex justify-between">
+                      <span>HDFC Index Fund Sensex - Direct</span>
+                      <span className="text-secondary font-medium">0.20%</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 bg-accent/50 rounded-xl">
+                  <div className="font-medium mb-1">Nifty Midcap 150 Index</div>
+                  <p className="text-sm text-muted-foreground mb-2">Mid-sized companies exposure</p>
+                  <div className="text-xs space-y-1">
+                    <div className="flex justify-between">
+                      <span>Motilal Nifty Midcap 150 - Direct</span>
+                      <span className="text-secondary font-medium">0.30%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass-card rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-4">Who Should Invest in Index Funds?</h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="p-4 rounded-xl bg-accent/50">
+                  <div className="text-2xl mb-2">🌱</div>
+                  <div className="font-medium mb-1">Beginners</div>
+                  <p className="text-xs text-muted-foreground">No need to pick funds or time the market. Just SIP and forget.</p>
+                </div>
+                <div className="p-4 rounded-xl bg-accent/50">
+                  <div className="text-2xl mb-2">⏰</div>
+                  <div className="font-medium mb-1">Busy Professionals</div>
+                  <p className="text-xs text-muted-foreground">No time to research? Index funds require zero active management.</p>
+                </div>
+                <div className="p-4 rounded-xl bg-accent/50">
+                  <div className="text-2xl mb-2">🎯</div>
+                  <div className="font-medium mb-1">Long-term Investors</div>
+                  <p className="text-xs text-muted-foreground">5+ year horizon? Index funds are perfect for wealth building.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

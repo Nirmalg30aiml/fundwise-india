@@ -260,15 +260,17 @@ export default function SIPCalculator() {
                       <div className="relative w-28">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">₹</span>
                         <Input
-                          type="number"
-                          value={sipAmount}
+                          type="text"
+                          value={sipAmount >= 100000 ? `${(sipAmount / 100000).toFixed(2)}L` : sipAmount.toLocaleString('en-IN')}
                           onChange={(e) => {
-                            const val = Math.min(200000, Math.max(1000, parseInt(e.target.value) || 1000));
-                            setSipAmount(val);
+                            let val = e.target.value.replace(/[^\d.]/g, '');
+                            if (e.target.value.toLowerCase().includes('l')) {
+                              val = String(parseFloat(val) * 100000 || 100000);
+                            }
+                            const numVal = Math.min(200000, Math.max(1000, parseInt(val) || 1000));
+                            setSipAmount(numVal);
                           }}
                           className="pl-7 pr-2 h-8 text-right font-semibold text-primary"
-                          min={1000}
-                          max={200000}
                         />
                       </div>
                     </div>
@@ -282,7 +284,7 @@ export default function SIPCalculator() {
                     />
                     <div className="flex justify-between text-xs text-muted-foreground">
                       <span>₹1,000</span>
-                      <span>₹2 Lakh</span>
+                      <span>₹2L</span>
                     </div>
                   </div>
 

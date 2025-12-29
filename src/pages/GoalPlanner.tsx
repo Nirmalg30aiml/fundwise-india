@@ -39,10 +39,11 @@ const goalTypes = [
   { id: 'custom', name: 'Custom Goal', icon: Settings, emoji: '⚙️', defaultAmount: 1000000, defaultYears: 5 },
 ];
 
-const riskProfiles = [
-  { value: 'conservative', label: 'Conservative', returnRate: 8, description: 'Lower risk, stable returns' },
-  { value: 'moderate', label: 'Moderate', returnRate: 12, description: 'Balanced risk-return' },
-  { value: 'aggressive', label: 'Aggressive', returnRate: 15, description: 'Higher risk, higher potential' },
+// Quick return presets for Expected Annual Return
+const returnPresets = [
+  { value: 8, label: '8%', description: 'Conservative' },
+  { value: 12, label: '12%', description: 'Moderate' },
+  { value: 15, label: '15%', description: 'Aggressive' },
 ];
 
 interface Goal {
@@ -186,13 +187,20 @@ function GoalPlannerContent() {
     setStep('details');
   };
 
-  const handleRiskProfileChange = (value: string) => {
-    const profile = riskProfiles.find(p => p.value === value);
+  const handleExpectedReturnChange = (value: number) => {
+    const clampedValue = Math.min(Math.max(value, 1), 30);
     setCurrentGoal({
       ...currentGoal,
-      riskProfile: value,
-      expectedReturn: profile?.returnRate || 12,
+      expectedReturn: clampedValue,
     });
+  };
+
+  const handleNumericInput = (field: keyof Goal, value: string, min: number, max: number) => {
+    const numValue = parseFloat(value.replace(/,/g, ''));
+    if (!isNaN(numValue)) {
+      const clampedValue = Math.min(Math.max(numValue, min), max);
+      setCurrentGoal({ ...currentGoal, [field]: clampedValue });
+    }
   };
 
   const handleSaveGoal = () => {
@@ -434,12 +442,22 @@ function GoalPlannerContent() {
 
                   {/* Target Amount */}
                   <div>
-                    <div className="flex justify-between mb-2">
+                    <div className="flex justify-between items-center mb-2">
                       <Label className="flex items-center gap-2">
                         <IndianRupee className="w-4 h-4" />
                         Target Amount {currentGoal.inflationAdjusted && <span className="text-xs text-muted-foreground">(in today's value)</span>}
                       </Label>
-                      <span className="font-semibold text-primary">{formatCurrency(currentGoal.targetAmount || 0)}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-muted-foreground">₹</span>
+                        <Input
+                          type="number"
+                          value={currentGoal.targetAmount || 0}
+                          onChange={(e) => handleNumericInput('targetAmount', e.target.value, 50000, 100000000)}
+                          className="w-32 h-8 text-right font-semibold text-primary"
+                          min={50000}
+                          max={100000000}
+                        />
+                      </div>
                     </div>
                     <Slider
                       value={[currentGoal.targetAmount || 1000000]}
@@ -469,17 +487,32 @@ function GoalPlannerContent() {
                     </div>
                     {currentGoal.inflationAdjusted && (
                       <>
-                        <div className="flex justify-between mb-2">
+                        <div className="flex justify-between items-center mb-2">
                           <span className="text-xs text-muted-foreground">Inflation Rate</span>
-                          <span className="text-sm font-medium">{currentGoal.inflationRate}%</span>
+                          <div className="flex items-center gap-1">
+                            <Input
+                              type="number"
+                              value={currentGoal.inflationRate || 6}
+                              onChange={(e) => handleNumericInput('inflationRate', e.target.value, 1, 15)}
+                              className="w-16 h-7 text-right text-sm font-medium"
+                              min={1}
+                              max={15}
+                              step={0.5}
+                            />
+                            <span className="text-sm">%</span>
+                          </div>
                         </div>
                         <Slider
                           value={[currentGoal.inflationRate || 6]}
                           onValueChange={(v) => setCurrentGoal({ ...currentGoal, inflationRate: v[0] })}
-                          min={4}
-                          max={8}
+                          min={1}
+                          max={15}
                           step={0.5}
                         />
+                        <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                          <span>1%</span>
+                          <span>15%</span>
+                        </div>
                         <p className="text-xs text-muted-foreground mt-3">
                           <span className="font-medium">{formatCurrency(currentGoal.targetAmount || 0)}</span> today =
                           <span className="font-medium text-warning-amber"> {formatCurrency(adjustedTarget)}</span> in {currentGoal.timeHorizon} years
@@ -490,12 +523,22 @@ function GoalPlannerContent() {
 
                   {/* Time Horizon */}
                   <div>
-                    <div className="flex justify-between mb-2">
+                    <div className="flex justify-between items-center mb-2">
                       <Label className="flex items-center gap-2">
                         <Clock className="w-4 h-4" />
                         Time Horizon
                       </Label>
-                      <span className="font-semibold text-primary">{currentGoal.timeHorizon} Years</span>
+                      <div className="flex items-center gap-1">
+                        <Input
+                          type="number"
+                          value={currentGoal.timeHorizon || 10}
+                          onChange={(e) => handleNumericInput('timeHorizon', e.target.value, 1, 40)}
+                          className="w-16 h-8 text-right font-semibold text-primary"
+                          min={1}
+                          max={40}
+                        />
+                        <span className="text-sm text-muted-foreground">Years</span>
+                      </div>
                     </div>
                     <Slider
                       value={[currentGoal.timeHorizon || 10]}
@@ -513,12 +556,22 @@ function GoalPlannerContent() {
 
                   {/* Current Savings */}
                   <div>
-                    <div className="flex justify-between mb-2">
+                    <div className="flex justify-between items-center mb-2">
                       <Label className="flex items-center gap-2">
                         <IndianRupee className="w-4 h-4" />
                         Current Savings (if any)
                       </Label>
-                      <span className="font-semibold">{formatCurrency(currentGoal.currentSavings || 0)}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-muted-foreground">₹</span>
+                        <Input
+                          type="number"
+                          value={currentGoal.currentSavings || 0}
+                          onChange={(e) => handleNumericInput('currentSavings', e.target.value, 0, 100000000)}
+                          className="w-32 h-8 text-right font-semibold"
+                          min={0}
+                          max={100000000}
+                        />
+                      </div>
                     </div>
                     <Slider
                       value={[currentGoal.currentSavings || 0]}
@@ -527,33 +580,62 @@ function GoalPlannerContent() {
                       max={Math.min(currentGoal.targetAmount || 1000000, 10000000)}
                       step={10000}
                     />
+                    <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                      <span>₹0</span>
+                      <span>{formatCurrency(Math.min(currentGoal.targetAmount || 1000000, 10000000))}</span>
+                    </div>
                   </div>
 
-                  {/* Risk Tolerance */}
+                  {/* Expected Annual Return */}
                   <div>
-                    <Label className="mb-3 block">Risk Tolerance</Label>
-                    <RadioGroup
-                      value={currentGoal.riskProfile}
-                      onValueChange={handleRiskProfileChange}
-                      className="grid grid-cols-3 gap-3"
-                    >
-                      {riskProfiles.map((profile) => (
-                        <div key={profile.value}>
-                          <RadioGroupItem
-                            value={profile.value}
-                            id={profile.value}
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor={profile.value}
-                            className="flex flex-col items-center justify-center rounded-lg border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
-                          >
-                            <span className="font-medium text-sm">{profile.label}</span>
-                            <span className="text-xs text-muted-foreground">{profile.returnRate}% returns</span>
-                          </Label>
-                        </div>
+                    <div className="flex justify-between items-center mb-3">
+                      <Label className="flex items-center gap-2">
+                        <TrendingUp className="w-4 h-4" />
+                        Expected Annual Return
+                      </Label>
+                      <div className="flex items-center gap-1">
+                        <Input
+                          type="number"
+                          value={currentGoal.expectedReturn || 12}
+                          onChange={(e) => handleExpectedReturnChange(parseFloat(e.target.value) || 12)}
+                          className="w-16 h-8 text-right font-semibold text-primary"
+                          min={1}
+                          max={30}
+                          step={0.5}
+                        />
+                        <span className="text-sm">%</span>
+                      </div>
+                    </div>
+                    <Slider
+                      value={[currentGoal.expectedReturn || 12]}
+                      onValueChange={(v) => handleExpectedReturnChange(v[0])}
+                      min={1}
+                      max={30}
+                      step={0.5}
+                      className="mb-2"
+                    />
+                    <div className="flex justify-between text-xs text-muted-foreground mb-3">
+                      <span>1%</span>
+                      <span>30%</span>
+                    </div>
+                    {/* Quick Presets */}
+                    <div className="flex gap-2">
+                      {returnPresets.map((preset) => (
+                        <button
+                          key={preset.value}
+                          type="button"
+                          onClick={() => handleExpectedReturnChange(preset.value)}
+                          className={`flex-1 py-2 px-3 rounded-lg border text-sm transition-all ${
+                            currentGoal.expectedReturn === preset.value
+                              ? 'border-primary bg-primary/10 text-primary font-medium'
+                              : 'border-muted bg-popover hover:bg-accent hover:text-accent-foreground'
+                          }`}
+                        >
+                          <div className="font-medium">{preset.label}</div>
+                          <div className="text-xs text-muted-foreground">{preset.description}</div>
+                        </button>
                       ))}
-                    </RadioGroup>
+                    </div>
                   </div>
 
                   {/* Step-up SIP */}
@@ -573,20 +655,30 @@ function GoalPlannerContent() {
                     </p>
                     {currentGoal.stepUpEnabled && (
                       <div>
-                        <div className="flex justify-between mb-2">
+                        <div className="flex justify-between items-center mb-2">
                           <span className="text-xs text-muted-foreground">Annual SIP Increase</span>
-                          <span className="text-sm font-medium text-secondary">{currentGoal.stepUpPercent}%</span>
+                          <div className="flex items-center gap-1">
+                            <Input
+                              type="number"
+                              value={currentGoal.stepUpPercent || 10}
+                              onChange={(e) => handleNumericInput('stepUpPercent', e.target.value, 1, 50)}
+                              className="w-16 h-7 text-right text-sm font-medium text-secondary"
+                              min={1}
+                              max={50}
+                            />
+                            <span className="text-sm">%</span>
+                          </div>
                         </div>
                         <Slider
                           value={[currentGoal.stepUpPercent || 10]}
                           onValueChange={(v) => setCurrentGoal({ ...currentGoal, stepUpPercent: v[0] })}
-                          min={5}
-                          max={25}
+                          min={1}
+                          max={50}
                           step={1}
                         />
                         <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                          <span>5%</span>
-                          <span>25%</span>
+                          <span>1%</span>
+                          <span>50%</span>
                         </div>
                       </div>
                     )}

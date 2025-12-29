@@ -252,35 +252,61 @@ export default function SIPCalculator() {
                 <div className="space-y-6">
                   {/* Monthly SIP Amount */}
                   <div>
-                    <div className="flex justify-between mb-2">
+                    <div className="flex justify-between items-center mb-2">
                       <Label className="flex items-center gap-2 text-sm">
                         <IndianRupee className="w-4 h-4" />
                         Monthly SIP Amount
                       </Label>
-                      <span className="font-semibold text-primary">{formatCurrency(sipAmount)}</span>
+                      <div className="relative w-28">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">₹</span>
+                        <Input
+                          type="number"
+                          value={sipAmount}
+                          onChange={(e) => {
+                            const val = Math.min(200000, Math.max(1000, parseInt(e.target.value) || 1000));
+                            setSipAmount(val);
+                          }}
+                          className="pl-7 pr-2 h-8 text-right font-semibold text-primary"
+                          min={1000}
+                          max={200000}
+                        />
+                      </div>
                     </div>
                     <Slider
                       value={[sipAmount]}
                       onValueChange={(v) => setSipAmount(v[0])}
-                      min={500}
-                      max={100000}
+                      min={1000}
+                      max={200000}
                       step={500}
                       className="mb-2"
                     />
                     <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>₹500</span>
-                      <span>₹1 Lakh</span>
+                      <span>₹1,000</span>
+                      <span>₹2 Lakh</span>
                     </div>
                   </div>
 
                   {/* Investment Period */}
                   <div>
-                    <div className="flex justify-between mb-2">
+                    <div className="flex justify-between items-center mb-2">
                       <Label className="flex items-center gap-2 text-sm">
                         <Clock className="w-4 h-4" />
                         Investment Period
                       </Label>
-                      <span className="font-semibold text-primary">{tenure} Years</span>
+                      <div className="relative w-24">
+                        <Input
+                          type="number"
+                          value={tenure}
+                          onChange={(e) => {
+                            const val = Math.min(40, Math.max(1, parseInt(e.target.value) || 1));
+                            setTenure(val);
+                          }}
+                          className="pr-12 h-8 text-right font-semibold text-primary"
+                          min={1}
+                          max={40}
+                        />
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">Years</span>
+                      </div>
                     </div>
                     <Slider
                       value={[tenure]}
@@ -298,24 +324,38 @@ export default function SIPCalculator() {
 
                   {/* Expected Return */}
                   <div>
-                    <div className="flex justify-between mb-2">
+                    <div className="flex justify-between items-center mb-2">
                       <Label className="flex items-center gap-2 text-sm">
                         <TrendingUp className="w-4 h-4" />
                         Expected Annual Return
                       </Label>
-                      <span className="font-semibold text-primary">{expectedReturn}%</span>
+                      <div className="relative w-20">
+                        <Input
+                          type="number"
+                          value={expectedReturn}
+                          onChange={(e) => {
+                            const val = Math.min(40, Math.max(5, parseFloat(e.target.value) || 5));
+                            setExpectedReturn(val);
+                          }}
+                          className="pr-6 h-8 text-right font-semibold text-primary"
+                          min={5}
+                          max={40}
+                          step={0.5}
+                        />
+                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">%</span>
+                      </div>
                     </div>
                     <Slider
                       value={[expectedReturn]}
                       onValueChange={(v) => setExpectedReturn(v[0])}
-                      min={1}
-                      max={30}
+                      min={5}
+                      max={40}
                       step={0.5}
                       className="mb-2"
                     />
                     <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>1%</span>
-                      <span>30%</span>
+                      <span>5%</span>
+                      <span>40%</span>
                     </div>
                   </div>
 
@@ -333,15 +373,28 @@ export default function SIPCalculator() {
                     </div>
                     {stepUpEnabled && (
                       <div>
-                        <div className="flex justify-between mb-2">
+                        <div className="flex justify-between items-center mb-2">
                           <span className="text-xs text-muted-foreground">Annual increase</span>
-                          <span className="text-sm font-medium">{stepUpPercent}%</span>
+                          <div className="relative w-16">
+                            <Input
+                              type="number"
+                              value={stepUpPercent}
+                              onChange={(e) => {
+                                const val = Math.min(50, Math.max(0, parseInt(e.target.value) || 0));
+                                setStepUpPercent(val);
+                              }}
+                              className="pr-5 h-7 text-right text-sm font-medium"
+                              min={0}
+                              max={50}
+                            />
+                            <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">%</span>
+                          </div>
                         </div>
                         <Slider
                           value={[stepUpPercent]}
                           onValueChange={(v) => setStepUpPercent(v[0])}
                           min={0}
-                          max={20}
+                          max={50}
                           step={1}
                         />
                       </div>

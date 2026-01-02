@@ -29,7 +29,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
-const categories = ['All', 'Large Cap', 'Mid Cap', 'Small Cap', 'Flexi Cap', 'Multi Cap', 'Focused', 'Sectoral/Thematic', 'ELSS', 'Value/Contra', 'Equity'];
+const categories = ['All', 'Index Funds', 'Large Cap', 'Mid Cap', 'Small Cap', 'Flexi Cap', 'Multi Cap', 'Sectoral/Thematic', 'ELSS', 'Value/Contra'];
 const ITEMS_PER_PAGE = 50;
 
 export default function Screener() {
@@ -113,7 +113,13 @@ export default function Screener() {
     }
 
     // Filter by category
-    if (selectedCategory !== 'All') {
+    if (selectedCategory === 'Index Funds') {
+      funds = funds.filter(fund => 
+        fund.schemeName.toLowerCase().includes('index') ||
+        fund.schemeName.toLowerCase().includes('nifty') ||
+        fund.schemeName.toLowerCase().includes('sensex')
+      );
+    } else if (selectedCategory !== 'All') {
       funds = funds.filter(fund => fund.category === selectedCategory);
     }
 
@@ -211,7 +217,7 @@ export default function Screener() {
       case 'Small Cap': return 'bg-warning-amber/10 text-warning-amber';
       case 'Flexi Cap': return 'bg-secondary/10 text-secondary';
       case 'Multi Cap': return 'bg-primary/10 text-primary';
-      case 'Focused': return 'bg-info-cyan/10 text-info-cyan';
+      case 'Index Funds': return 'bg-secondary/10 text-secondary';
       case 'Sectoral/Thematic': return 'bg-destructive/10 text-destructive';
       case 'ELSS': return 'bg-secondary/10 text-secondary';
       case 'Value/Contra': return 'bg-warning-amber/10 text-warning-amber';

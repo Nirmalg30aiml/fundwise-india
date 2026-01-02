@@ -263,12 +263,20 @@ export default function SIPCalculator() {
                           type="text"
                           value={sipAmount >= 100000 ? `${(sipAmount / 100000).toFixed(2)}L` : sipAmount.toLocaleString('en-IN')}
                           onChange={(e) => {
-                            let val = e.target.value.replace(/[^\d.]/g, '');
-                            if (e.target.value.toLowerCase().includes('l')) {
-                              val = String(parseFloat(val) * 100000 || 100000);
+                            const rawValue = e.target.value;
+                            if (rawValue === '' || rawValue === '₹') {
+                              setSipAmount(0);
+                              return;
                             }
-                            const numVal = Math.min(200000, Math.max(1000, parseInt(val) || 1000));
+                            let val = rawValue.replace(/[^\d.]/g, '');
+                            if (rawValue.toLowerCase().includes('l')) {
+                              val = String(parseFloat(val) * 100000 || 0);
+                            }
+                            const numVal = Math.min(200000, Math.max(0, parseInt(val) || 0));
                             setSipAmount(numVal);
+                          }}
+                          onBlur={() => {
+                            if (sipAmount < 1000) setSipAmount(1000);
                           }}
                           className="pl-7 pr-2 h-8 text-right font-semibold text-primary"
                         />
@@ -297,15 +305,21 @@ export default function SIPCalculator() {
                       </Label>
                       <div className="relative w-24">
                         <Input
-                          type="number"
-                          value={tenure}
+                          type="text"
+                          value={tenure || ''}
                           onChange={(e) => {
-                            const val = Math.min(40, Math.max(1, parseInt(e.target.value) || 1));
+                            const rawValue = e.target.value;
+                            if (rawValue === '') {
+                              setTenure(0);
+                              return;
+                            }
+                            const val = Math.min(40, Math.max(0, parseInt(rawValue.replace(/[^\d]/g, '')) || 0));
                             setTenure(val);
                           }}
+                          onBlur={() => {
+                            if (tenure < 1) setTenure(1);
+                          }}
                           className="pr-12 h-8 text-right font-semibold text-primary"
-                          min={1}
-                          max={40}
                         />
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">Years</span>
                       </div>
@@ -333,16 +347,21 @@ export default function SIPCalculator() {
                       </Label>
                       <div className="relative w-20">
                         <Input
-                          type="number"
-                          value={expectedReturn}
+                          type="text"
+                          value={expectedReturn || ''}
                           onChange={(e) => {
-                            const val = Math.min(40, Math.max(5, parseFloat(e.target.value) || 5));
+                            const rawValue = e.target.value;
+                            if (rawValue === '') {
+                              setExpectedReturn(0);
+                              return;
+                            }
+                            const val = Math.min(40, Math.max(0, parseFloat(rawValue.replace(/[^\d.]/g, '')) || 0));
                             setExpectedReturn(val);
                           }}
+                          onBlur={() => {
+                            if (expectedReturn < 5) setExpectedReturn(5);
+                          }}
                           className="pr-6 h-8 text-right font-semibold text-primary"
-                          min={5}
-                          max={40}
-                          step={0.5}
                         />
                         <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">%</span>
                       </div>
@@ -379,15 +398,18 @@ export default function SIPCalculator() {
                           <span className="text-xs text-muted-foreground">Annual increase</span>
                           <div className="relative w-16">
                             <Input
-                              type="number"
-                              value={stepUpPercent}
+                              type="text"
+                              value={stepUpPercent || ''}
                               onChange={(e) => {
-                                const val = Math.min(50, Math.max(0, parseInt(e.target.value) || 0));
+                                const rawValue = e.target.value;
+                                if (rawValue === '') {
+                                  setStepUpPercent(0);
+                                  return;
+                                }
+                                const val = Math.min(50, Math.max(0, parseInt(rawValue.replace(/[^\d]/g, '')) || 0));
                                 setStepUpPercent(val);
                               }}
                               className="pr-5 h-7 text-right text-sm font-medium"
-                              min={0}
-                              max={50}
                             />
                             <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">%</span>
                           </div>

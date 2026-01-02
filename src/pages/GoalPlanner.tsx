@@ -82,9 +82,24 @@ function GoalPlannerContent() {
     if (value >= 10000000) {
       return `₹${(value / 10000000).toFixed(2)} Cr`;
     } else if (value >= 100000) {
-      return `₹${(value / 100000).toFixed(2)} L`;
+      return `₹${(value / 100000).toFixed(2)}L`;
     }
     return `₹${value.toLocaleString('en-IN')}`;
+  };
+
+  const formatInputValue = (value: number) => {
+    if (value >= 100000) {
+      return `${(value / 100000).toFixed(2)}L`;
+    }
+    return value.toLocaleString('en-IN');
+  };
+
+  const parseInputValue = (value: string): number => {
+    const cleanValue = value.replace(/[^\d.]/g, '');
+    if (value.toLowerCase().includes('l')) {
+      return parseFloat(cleanValue) * 100000 || 0;
+    }
+    return parseFloat(cleanValue) || 0;
   };
 
   const calculateSIPRequired = (target: number, years: number, rate: number, currentSavings: number, stepUpEnabled: boolean = false, stepUpPercent: number = 10) => {
@@ -195,8 +210,14 @@ function GoalPlannerContent() {
     });
   };
 
-  const handleNumericInput = (field: keyof Goal, value: string, min: number, max: number) => {
-    const numValue = parseFloat(value.replace(/,/g, ''));
+  const handleNumericInput = (field: keyof Goal, value: string, min: number, max: number, allowLakh: boolean = false) => {
+    // Allow empty input for user-friendly editing
+    if (value === '' || value === '₹') {
+      setCurrentGoal({ ...currentGoal, [field]: 0 });
+      return;
+    }
+    
+    const numValue = allowLakh ? parseInputValue(value) : parseFloat(value.replace(/[^\d.]/g, ''));
     if (!isNaN(numValue)) {
       const clampedValue = Math.min(Math.max(numValue, min), max);
       setCurrentGoal({ ...currentGoal, [field]: clampedValue });
@@ -450,12 +471,10 @@ function GoalPlannerContent() {
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-muted-foreground">₹</span>
                         <Input
-                          type="number"
-                          value={currentGoal.targetAmount || 0}
-                          onChange={(e) => handleNumericInput('targetAmount', e.target.value, 50000, 100000000)}
+                          type="text"
+                          value={formatInputValue(currentGoal.targetAmount || 0)}
+                          onChange={(e) => handleNumericInput('targetAmount', e.target.value, 50000, 100000000, true)}
                           className="w-32 h-8 text-right font-semibold text-primary"
-                          min={50000}
-                          max={100000000}
                         />
                       </div>
                     </div>
@@ -491,13 +510,10 @@ function GoalPlannerContent() {
                           <span className="text-xs text-muted-foreground">Inflation Rate</span>
                           <div className="flex items-center gap-1">
                             <Input
-                              type="number"
-                              value={currentGoal.inflationRate || 6}
+                              type="text"
+                              value={currentGoal.inflationRate || ''}
                               onChange={(e) => handleNumericInput('inflationRate', e.target.value, 1, 15)}
                               className="w-16 h-7 text-right text-sm font-medium"
-                              min={1}
-                              max={15}
-                              step={0.5}
                             />
                             <span className="text-sm">%</span>
                           </div>
@@ -530,12 +546,10 @@ function GoalPlannerContent() {
                       </Label>
                       <div className="flex items-center gap-1">
                         <Input
-                          type="number"
-                          value={currentGoal.timeHorizon || 10}
+                          type="text"
+                          value={currentGoal.timeHorizon || ''}
                           onChange={(e) => handleNumericInput('timeHorizon', e.target.value, 1, 40)}
                           className="w-16 h-8 text-right font-semibold text-primary"
-                          min={1}
-                          max={40}
                         />
                         <span className="text-sm text-muted-foreground">Years</span>
                       </div>
@@ -564,12 +578,10 @@ function GoalPlannerContent() {
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-muted-foreground">₹</span>
                         <Input
-                          type="number"
-                          value={currentGoal.currentSavings || 0}
-                          onChange={(e) => handleNumericInput('currentSavings', e.target.value, 0, 100000000)}
+                          type="text"
+                          value={formatInputValue(currentGoal.currentSavings || 0)}
+                          onChange={(e) => handleNumericInput('currentSavings', e.target.value, 0, 100000000, true)}
                           className="w-32 h-8 text-right font-semibold"
-                          min={0}
-                          max={100000000}
                         />
                       </div>
                     </div>
@@ -595,13 +607,13 @@ function GoalPlannerContent() {
                       </Label>
                       <div className="flex items-center gap-1">
                         <Input
-                          type="number"
-                          value={currentGoal.expectedReturn || 12}
-                          onChange={(e) => handleExpectedReturnChange(parseFloat(e.target.value) || 12)}
+                          type="text"
+                          value={currentGoal.expectedReturn || ''}
+                          onChange={(e) => {
+                            const val = e.target.value === '' ? 0 : parseFloat(e.target.value.replace(/[^\d.]/g, '')) || 0;
+                            handleExpectedReturnChange(val);
+                          }}
                           className="w-16 h-8 text-right font-semibold text-primary"
-                          min={1}
-                          max={30}
-                          step={0.5}
                         />
                         <span className="text-sm">%</span>
                       </div>
@@ -659,12 +671,10 @@ function GoalPlannerContent() {
                           <span className="text-xs text-muted-foreground">Annual SIP Increase</span>
                           <div className="flex items-center gap-1">
                             <Input
-                              type="number"
-                              value={currentGoal.stepUpPercent || 10}
+                              type="text"
+                              value={currentGoal.stepUpPercent || ''}
                               onChange={(e) => handleNumericInput('stepUpPercent', e.target.value, 1, 50)}
                               className="w-16 h-7 text-right text-sm font-medium text-secondary"
-                              min={1}
-                              max={50}
                             />
                             <span className="text-sm">%</span>
                           </div>

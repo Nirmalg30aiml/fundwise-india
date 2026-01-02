@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 import { Shield, Phone, KeyRound, ArrowRight, Loader2, AlertTriangle } from 'lucide-react';
 import { z } from 'zod';
 
@@ -37,21 +36,6 @@ export default function AdminLogin() {
     }
   }, [countdown]);
 
-  const checkIfAdmin = async (phoneNumber: string): Promise<boolean> => {
-    const { data, error } = await supabase
-      .from('admin_users')
-      .select('id')
-      .eq('phone_number', phoneNumber)
-      .maybeSingle();
-    
-    if (error) {
-      console.error('Error checking admin status:', error);
-      return false;
-    }
-    
-    return !!data;
-  };
-
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -70,26 +54,15 @@ export default function AdminLogin() {
 
     setIsLoading(true);
     
-    // First check if this phone number is registered as admin
-    const isAdminPhone = await checkIfAdmin(phone);
-    
-    if (!isAdminPhone) {
-      setIsLoading(false);
-      toast({
-        title: "Not Authorized",
-        description: "This phone number is not registered as an admin.",
-        variant: "destructive"
-      });
-      return;
-    }
-
+    // Send OTP without checking admin status - we verify admin status AFTER authentication
+    // This prevents information leakage about which phone numbers are registered as admins
     const { error } = await signInWithOtp(phone);
     setIsLoading(false);
 
     if (error) {
       toast({
         title: "Error",
-        description: error.message,
+        description: "Unable to send verification code. Please try again.",
         variant: "destructive"
       });
     } else {
@@ -108,13 +81,13 @@ export default function AdminLogin() {
       setIsLoading(false);
       toast({
         title: "Verification Failed",
-        description: error.message,
+        description: "Invalid verification code. Please try again.",
         variant: "destructive"
       });
       return;
     }
 
-    // Check admin status after verification
+    // Check admin status AFTER authentication - this is the secure approach
     const adminStatus = await checkAdminStatus();
     setIsLoading(false);
     
@@ -123,7 +96,7 @@ export default function AdminLogin() {
     } else {
       toast({
         title: "Access Denied",
-        description: "You don't have admin privileges.",
+        description: "Invalid credentials.",
         variant: "destructive"
       });
     }

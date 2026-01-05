@@ -417,10 +417,13 @@ export default function Learn() {
       <section className="py-6 border-b border-border">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-3 justify-center">
+            <a href="#what-is-mutual-fund" className="px-4 py-2 rounded-full bg-primary/20 hover:bg-primary/30 text-sm font-medium transition-colors border border-primary/30">
+              🎯 What is Mutual Fund?
+            </a>
             <a href="#direct-vs-regular" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
               Direct vs Regular Plans
             </a>
-            <a href="#growth-vs-idcw" className="px-4 py-2 rounded-full bg-primary/20 hover:bg-primary/30 text-sm font-medium transition-colors border border-primary/30">
+            <a href="#growth-vs-idcw" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
               Growth vs IDCW
             </a>
             <a href="#index-funds" className="px-4 py-2 rounded-full bg-secondary/20 hover:bg-secondary/30 text-sm font-medium transition-colors border border-secondary/30">
@@ -432,6 +435,176 @@ export default function Learn() {
             <a href="#fund-categories" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
               Fund Categories
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* What is Mutual Fund Section */}
+      <section id="what-is-mutual-fund" className="py-12 md:py-16 bg-gradient-surface">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Target className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold">What is a Mutual Fund?</h2>
+                <p className="text-sm text-muted-foreground">Your first step to smart investing</p>
+              </div>
+            </div>
+
+            {/* Simple Explanation */}
+            <div className="glass-card rounded-xl p-6 mb-8">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0">
+                  <Lightbulb className="w-5 h-5 text-secondary" />
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-2">The Simple Answer</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    A <strong className="text-foreground">Mutual Fund</strong> is like a group investment where many investors pool their money together. 
+                    A professional fund manager then invests this money in stocks, bonds, or other assets on behalf of everyone.
+                  </p>
+                  <div className="mt-4 p-4 bg-accent rounded-lg">
+                    <p className="text-sm">
+                      <strong>🥘 Think of it like a potluck dinner:</strong> Everyone contributes a dish (money), 
+                      a professional chef (fund manager) combines everything into a feast (diversified portfolio), 
+                      and everyone enjoys the meal (returns) based on how much they contributed.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Why Choose Mutual Funds */}
+            <h3 className="text-xl font-semibold mb-4">Why Should You Choose Mutual Funds?</h3>
+            <div className="grid md:grid-cols-2 gap-4 mb-8">
+              <div className="glass-card rounded-xl p-5 border-l-4 border-l-secondary">
+                <div className="flex items-center gap-2 mb-3">
+                  <Shuffle className="w-5 h-5 text-secondary" />
+                  <h4 className="font-semibold">Instant Diversification</h4>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  With just ₹500, you own pieces of 50+ companies. If one stock falls, others can balance it out. 
+                  Buying individual stocks would require lakhs for the same diversification.
+                </p>
+              </div>
+
+              <div className="glass-card rounded-xl p-5 border-l-4 border-l-primary">
+                <div className="flex items-center gap-2 mb-3">
+                  <TrendingUp className="w-5 h-5 text-primary" />
+                  <h4 className="font-semibold">Professional Management</h4>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Expert fund managers research, analyze, and make investment decisions for you. 
+                  You don't need to track stock markets daily or become a finance expert.
+                </p>
+              </div>
+
+              <div className="glass-card rounded-xl p-5 border-l-4 border-l-info-cyan">
+                <div className="flex items-center gap-2 mb-3">
+                  <PiggyBank className="w-5 h-5 text-info-cyan" />
+                  <h4 className="font-semibold">Start Small, Dream Big</h4>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Begin with as low as ₹500/month via SIP. No need for large lump sums. 
+                  Investing becomes a habit, not a financial burden.
+                </p>
+              </div>
+
+              <div className="glass-card rounded-xl p-5 border-l-4 border-l-warning-amber">
+                <div className="flex items-center gap-2 mb-3">
+                  <Shield className="w-5 h-5 text-warning-amber" />
+                  <h4 className="font-semibold">SEBI Regulated</h4>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  All mutual funds in India are regulated by SEBI (Securities and Exchange Board of India). 
+                  Your money is safe, transparent, and well-governed.
+                </p>
+              </div>
+            </div>
+
+            {/* Biggest Advantage */}
+            <div className="glass-card rounded-xl p-6 mb-8 bg-gradient-to-r from-secondary/10 to-primary/10 border-2 border-secondary/30">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center">
+                  <Rocket className="w-6 h-6 text-secondary" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">The Biggest Advantage: Power of Compounding</h3>
+                  <p className="text-sm text-muted-foreground">Albert Einstein called it the 8th wonder of the world</p>
+                </div>
+              </div>
+              
+              <p className="text-muted-foreground mb-4">
+                In mutual funds, your returns generate their own returns. This snowball effect, called <strong className="text-foreground">compounding</strong>, 
+                is why starting early matters more than investing more.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="p-4 bg-background/50 rounded-lg">
+                  <h4 className="font-semibold text-secondary mb-2">📈 Example: The Early Investor</h4>
+                  <ul className="text-sm space-y-1 text-muted-foreground">
+                    <li>• Starts at age 25 with ₹5,000/month</li>
+                    <li>• Invests for 10 years, then stops</li>
+                    <li>• Total invested: ₹6 lakh</li>
+                    <li>• At age 60 (12% CAGR): <strong className="text-secondary">₹1.76 Crore</strong></li>
+                  </ul>
+                </div>
+                <div className="p-4 bg-background/50 rounded-lg">
+                  <h4 className="font-semibold text-warning-amber mb-2">⏰ Example: The Late Starter</h4>
+                  <ul className="text-sm space-y-1 text-muted-foreground">
+                    <li>• Starts at age 35 with ₹5,000/month</li>
+                    <li>• Invests for 25 years continuously</li>
+                    <li>• Total invested: ₹15 lakh</li>
+                    <li>• At age 60 (12% CAGR): <strong className="text-warning-amber">₹95 Lakh</strong></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-4 p-3 bg-secondary/10 rounded-lg">
+                <p className="text-sm text-center">
+                  <strong>💡 Key Insight:</strong> The early investor invested <strong>₹9 lakh less</strong> but ended up with <strong>₹81 lakh more</strong>. 
+                  That's the magic of time + compounding!
+                </p>
+              </div>
+            </div>
+
+            {/* Who Should Invest */}
+            <div className="glass-card rounded-xl p-6">
+              <h3 className="font-semibold mb-4 flex items-center gap-2">
+                <HelpCircle className="w-5 h-5 text-primary" />
+                Who Should Invest in Mutual Funds?
+              </h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="text-center p-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                    <span className="text-2xl">👨‍💼</span>
+                  </div>
+                  <h4 className="font-medium mb-1">Salaried Professionals</h4>
+                  <p className="text-xs text-muted-foreground">Build wealth through monthly SIPs from your salary</p>
+                </div>
+                <div className="text-center p-4">
+                  <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-3">
+                    <span className="text-2xl">🧑‍🎓</span>
+                  </div>
+                  <h4 className="font-medium mb-1">Young Starters</h4>
+                  <p className="text-xs text-muted-foreground">Start with ₹500/month and let time work its magic</p>
+                </div>
+                <div className="text-center p-4">
+                  <div className="w-12 h-12 rounded-full bg-warning-amber/10 flex items-center justify-center mx-auto mb-3">
+                    <span className="text-2xl">👨‍👩‍👧</span>
+                  </div>
+                  <h4 className="font-medium mb-1">Parents</h4>
+                  <p className="text-xs text-muted-foreground">Plan for children's education and marriage</p>
+                </div>
+              </div>
+              <div className="mt-4 p-3 bg-accent rounded-lg text-center">
+                <p className="text-sm">
+                  <strong>Bottom line:</strong> Anyone who wants their money to grow faster than FDs and beat inflation should consider mutual funds!
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

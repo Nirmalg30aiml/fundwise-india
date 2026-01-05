@@ -420,11 +420,8 @@ export default function Learn() {
             <a href="#what-is-mutual-fund" className="px-4 py-2 rounded-full bg-primary/20 hover:bg-primary/30 text-sm font-medium transition-colors border border-primary/30">
               🎯 What is Mutual Fund?
             </a>
-            <a href="#direct-vs-regular" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
-              Direct vs Regular Plans
-            </a>
-            <a href="#growth-vs-idcw" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
-              Growth vs IDCW
+            <a href="#understanding-mf-plans" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
+              Understanding MF Plans
             </a>
             <a href="#index-funds" className="px-4 py-2 rounded-full bg-secondary/20 hover:bg-secondary/30 text-sm font-medium transition-colors border border-secondary/30">
               📊 Index Funds
@@ -609,8 +606,8 @@ export default function Learn() {
         </div>
       </section>
 
-      {/* Direct vs Regular Section */}
-      <section id="direct-vs-regular" className="py-12 md:py-16">
+      {/* Understanding Mutual Fund Plans Section */}
+      <section id="understanding-mf-plans" className="py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-3 mb-6">
@@ -618,422 +615,476 @@ export default function Learn() {
                 <Scale className="w-6 h-6 text-secondary" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold">Direct vs Regular Plans</h2>
-                <p className="text-sm text-muted-foreground">The most important decision for DIY investors</p>
+                <h2 className="text-2xl font-bold">Understanding Mutual Fund Plans</h2>
+                <p className="text-sm text-muted-foreground">Two important choices every investor must understand</p>
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              {/* Direct Plan Card */}
-              <div className="glass-card rounded-xl p-6 border-2 border-secondary/50">
-                <div className="flex items-center gap-2 mb-4">
-                  <CheckCircle2 className="w-6 h-6 text-secondary" />
-                  <h3 className="text-xl font-semibold">Direct Plan</h3>
-                  <span className="ml-auto text-xs px-2 py-1 rounded-full bg-secondary/20 text-secondary font-medium">Recommended</span>
-                </div>
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start gap-2">
-                    <span className="text-secondary font-bold">✓</span>
-                    <span>No distributor commission - you invest directly with AMC</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-secondary font-bold">✓</span>
-                    <span>Lower expense ratio (typically 0.5-1% less)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-secondary font-bold">✓</span>
-                    <span>Higher returns over long term due to lower fees</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-secondary font-bold">✓</span>
-                    <span>Same fund manager, same portfolio, same NAV timing</span>
-                  </li>
-                </ul>
-                <div className="mt-4 p-3 bg-secondary/10 rounded-lg">
-                  <p className="text-xs text-muted-foreground">
-                    <strong>How to identify:</strong> Look for "Direct", "Dir", or "Direct Plan" in the fund name
-                  </p>
-                </div>
-              </div>
-
-              {/* Regular Plan Card */}
-              <div className="glass-card rounded-xl p-6 opacity-80">
-                <div className="flex items-center gap-2 mb-4">
-                  <AlertTriangle className="w-6 h-6 text-warning-amber" />
-                  <h3 className="text-xl font-semibold">Regular Plan</h3>
-                  <span className="ml-auto text-xs px-2 py-1 rounded-full bg-warning-amber/20 text-warning-amber font-medium">Higher Fees</span>
-                </div>
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start gap-2">
-                    <span className="text-warning-amber font-bold">→</span>
-                    <span>Includes distributor/advisor commission (0.5-1%)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-warning-amber font-bold">→</span>
-                    <span>Higher expense ratio eats into your returns</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-warning-amber font-bold">→</span>
-                    <span>Good if you need hand-holding from an advisor</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-warning-amber font-bold">→</span>
-                    <span>Same underlying fund, just with extra fees</span>
-                  </li>
-                </ul>
-                <div className="mt-4 p-3 bg-warning-amber/10 rounded-lg">
-                  <p className="text-xs text-muted-foreground">
-                    <strong>How to identify:</strong> If it doesn't say "Direct", it's Regular by default
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Real Examples */}
-            <div className="glass-card rounded-xl p-6 mb-8">
-              <h3 className="font-semibold mb-4 flex items-center gap-2">
-                <Lightbulb className="w-5 h-5 text-warning-amber" />
-                Real Fund Examples
-              </h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-border">
-                      <th className="text-left py-2 font-medium">Fund Name</th>
-                      <th className="text-center py-2 font-medium">Type</th>
-                      <th className="text-right py-2 font-medium">Expense Ratio</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {directVsRegularExamples.map((fund, i) => (
-                      <tr key={i} className="border-b border-border/50">
-                        <td className="py-2 text-muted-foreground">{fund.name}</td>
-                        <td className="text-center py-2">
-                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                            fund.type === 'Direct' 
-                              ? 'bg-secondary/20 text-secondary' 
-                              : 'bg-muted text-muted-foreground'
-                          }`}>
-                            {fund.type}
-                          </span>
-                        </td>
-                        <td className={`text-right py-2 font-medium ${
-                          fund.type === 'Direct' ? 'text-secondary' : 'text-muted-foreground'
-                        }`}>
-                          {fund.expense}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* Try It Yourself */}
-            <div className="glass-card rounded-xl p-6 bg-accent/30">
-              <h3 className="font-semibold mb-4 flex items-center gap-2">
-                <HelpCircle className="w-5 h-5 text-info-cyan" />
-                Try It: Enter a Fund Name
-              </h3>
-              <div className="flex gap-3 mb-4">
-                <input
-                  type="text"
-                  value={testFundName}
-                  onChange={(e) => setTestFundName(e.target.value)}
-                  placeholder="e.g., Axis Bluechip Direct Growth"
-                  className="flex-1 px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
-                />
-                <button
-                  onClick={handleTestFund}
-                  className="px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
-                >
-                  Identify
-                </button>
-              </div>
-              {testResult && (
-                <div className={`p-4 rounded-lg ${
-                  testResult.type === 'Direct' 
-                    ? 'bg-secondary/10 border border-secondary/30' 
-                    : 'bg-warning-amber/10 border border-warning-amber/30'
-                }`}>
-                  <div className="flex items-center gap-2">
-                    {testResult.type === 'Direct' ? (
-                      <CheckCircle2 className="w-5 h-5 text-secondary" />
-                    ) : (
-                      <AlertTriangle className="w-5 h-5 text-warning-amber" />
-                    )}
-                    <span className="font-semibold">{testResult.type} Plan</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    {testResult.type === 'Direct' 
-                      ? 'Great choice! This is a Direct plan with lower expense ratio. You save on distributor commission.'
-                      : 'This appears to be a Regular plan. Consider switching to Direct plan to save on fees.'}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Growth vs IDCW Section */}
-      <section id="growth-vs-idcw" className="py-12 md:py-16 bg-gradient-to-br from-primary/5 to-info-cyan/5">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold">Growth vs IDCW Plans</h2>
-                <p className="text-sm text-muted-foreground">Understanding dividend options in mutual funds</p>
-              </div>
-            </div>
-
-            {/* What is IDCW */}
-            <div className="glass-card rounded-xl p-6 mb-8">
-              <h3 className="font-semibold mb-4 flex items-center gap-2">
-                <Info className="w-5 h-5 text-info-cyan" />
-                What is IDCW?
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                <strong>IDCW</strong> stands for <strong>Income Distribution cum Capital Withdrawal</strong>. 
-                Earlier called "Dividend" option, SEBI renamed it to IDCW in 2021 to clarify that payouts come from your own investment, 
-                not as additional income like stock dividends.
+            {/* Intro Card */}
+            <div className="glass-card rounded-xl p-6 mb-8 bg-gradient-to-r from-secondary/10 to-primary/10">
+              <p className="text-muted-foreground">
+                When you invest in a mutual fund, you need to make <strong className="text-foreground">two key decisions</strong>:
               </p>
-              <div className="p-4 bg-warning-amber/10 rounded-lg border border-warning-amber/30">
-                <p className="text-sm text-muted-foreground">
-                  <strong className="text-warning-amber">Important:</strong> IDCW payouts are NOT additional earnings. 
-                  They are a portion of your invested capital being returned to you, which reduces your NAV proportionally.
-                </p>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              {/* Growth Plan Card */}
-              <div className="glass-card rounded-xl p-6 border-2 border-primary/50">
-                <div className="flex items-center gap-2 mb-4">
-                  <TrendingUp className="w-6 h-6 text-primary" />
-                  <h3 className="text-xl font-semibold">Growth Plan</h3>
-                  <span className="ml-auto text-xs px-2 py-1 rounded-full bg-primary/20 text-primary font-medium">Recommended</span>
+              <div className="grid md:grid-cols-2 gap-4 mt-4">
+                <div className="p-4 bg-background/50 rounded-lg border-l-4 border-l-secondary">
+                  <h4 className="font-semibold text-secondary mb-1">1. Direct vs Regular</h4>
+                  <p className="text-sm text-muted-foreground">How you buy the fund (with or without intermediary)</p>
                 </div>
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary font-bold">✓</span>
-                    <span>All profits are reinvested - NAV keeps growing</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary font-bold">✓</span>
-                    <span>Power of compounding works fully for you</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary font-bold">✓</span>
-                    <span>Tax efficient - no tax until you redeem</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary font-bold">✓</span>
-                    <span>Better for wealth creation over long term</span>
-                  </li>
-                </ul>
-                <div className="mt-4 p-3 bg-primary/10 rounded-lg">
-                  <p className="text-xs text-muted-foreground">
-                    <strong>Ideal for:</strong> Long-term investors, wealth building, retirement planning, those who don't need regular income
-                  </p>
-                </div>
-              </div>
-
-              {/* IDCW Plan Card */}
-              <div className="glass-card rounded-xl p-6 opacity-90">
-                <div className="flex items-center gap-2 mb-4">
-                  <Wallet className="w-6 h-6 text-info-cyan" />
-                  <h3 className="text-xl font-semibold">IDCW Plan</h3>
-                  <span className="ml-auto text-xs px-2 py-1 rounded-full bg-info-cyan/20 text-info-cyan font-medium">Regular Payouts</span>
-                </div>
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start gap-2">
-                    <span className="text-info-cyan font-bold">→</span>
-                    <span>Periodic payouts from your investment (not extra income)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-info-cyan font-bold">→</span>
-                    <span>NAV reduces after each payout</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-info-cyan font-bold">→</span>
-                    <span>Payouts are taxed at your income tax slab</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-info-cyan font-bold">→</span>
-                    <span>Two sub-options: Payout (cash) or Reinvestment (buy more units)</span>
-                  </li>
-                </ul>
-                <div className="mt-4 p-3 bg-info-cyan/10 rounded-lg">
-                  <p className="text-xs text-muted-foreground">
-                    <strong>Ideal for:</strong> Retirees needing regular income, those who want periodic cash flow from investments
-                  </p>
+                <div className="p-4 bg-background/50 rounded-lg border-l-4 border-l-primary">
+                  <h4 className="font-semibold text-primary mb-1">2. Growth vs IDCW</h4>
+                  <p className="text-sm text-muted-foreground">What happens to your profits (reinvest or payout)</p>
                 </div>
               </div>
             </div>
 
-            {/* Comparison Table */}
-            <div className="glass-card rounded-xl p-6 mb-8">
-              <h3 className="font-semibold mb-4 flex items-center gap-2">
-                <Scale className="w-5 h-5 text-secondary" />
-                Quick Comparison
-              </h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-border">
-                      <th className="text-left py-2 font-medium">Feature</th>
-                      <th className="text-center py-2 font-medium text-primary">Growth</th>
-                      <th className="text-center py-2 font-medium text-info-cyan">IDCW</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b border-border/50">
-                      <td className="py-2 text-muted-foreground">Profits</td>
-                      <td className="text-center py-2 text-primary">Reinvested</td>
-                      <td className="text-center py-2 text-info-cyan">Distributed periodically</td>
-                    </tr>
-                    <tr className="border-b border-border/50">
-                      <td className="py-2 text-muted-foreground">NAV Trend</td>
-                      <td className="text-center py-2 text-primary">Keeps increasing</td>
-                      <td className="text-center py-2 text-info-cyan">Resets after payout</td>
-                    </tr>
-                    <tr className="border-b border-border/50">
-                      <td className="py-2 text-muted-foreground">Taxation</td>
-                      <td className="text-center py-2 text-primary">On redemption only</td>
-                      <td className="text-center py-2 text-info-cyan">On each payout + redemption</td>
-                    </tr>
-                    <tr className="border-b border-border/50">
-                      <td className="py-2 text-muted-foreground">Compounding</td>
-                      <td className="text-center py-2 text-primary">Full benefit</td>
-                      <td className="text-center py-2 text-info-cyan">Interrupted by payouts</td>
-                    </tr>
-                    <tr className="border-b border-border/50">
-                      <td className="py-2 text-muted-foreground">Regular Income</td>
-                      <td className="text-center py-2 text-primary">No</td>
-                      <td className="text-center py-2 text-info-cyan">Yes (Payout option)</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* How to Identify */}
-            <div className="glass-card rounded-xl p-6 mb-8">
-              <h3 className="font-semibold mb-4 flex items-center gap-2">
-                <HelpCircle className="w-5 h-5 text-secondary" />
-                How to Identify Growth vs IDCW?
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 bg-primary/10 rounded-xl">
-                  <h4 className="font-medium mb-2 text-primary">Growth Fund Names</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
-                    <li>• Contains "Growth" or "Gr"</li>
-                    <li>• Example: "HDFC Flexi Cap Fund <strong>Growth</strong>"</li>
-                    <li>• Example: "SBI Bluechip <strong>Gr</strong>"</li>
-                    <li>• If no mention, usually Growth by default</li>
-                  </ul>
+            {/* Direct vs Regular Subsection */}
+            <div className="mb-12">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center">
+                  <span className="font-bold text-secondary">1</span>
                 </div>
-                <div className="p-4 bg-info-cyan/10 rounded-xl">
-                  <h4 className="font-medium mb-2 text-info-cyan">IDCW Fund Names</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
-                    <li>• Contains "IDCW", "Dividend", or "Div"</li>
-                    <li>• May say "IDCW Payout" or "IDCW Reinvestment"</li>
-                    <li>• Example: "Axis Midcap <strong>IDCW</strong>"</li>
-                    <li>• Older funds may still say "Dividend"</li>
-                  </ul>
-                </div>
+                <h3 className="text-xl font-bold">Direct vs Regular Plans</h3>
+                <span className="text-sm text-muted-foreground ml-2">The most important decision for DIY investors</span>
               </div>
-            </div>
 
-            {/* Real Examples */}
-            <div className="glass-card rounded-xl p-6 mb-8">
-              <h3 className="font-semibold mb-4 flex items-center gap-2">
-                <Lightbulb className="w-5 h-5 text-warning-amber" />
-                Real Fund Examples
-              </h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-border">
-                      <th className="text-left py-2 font-medium">Fund Name</th>
-                      <th className="text-center py-2 font-medium">Type</th>
-                      <th className="text-right py-2 font-medium">Dividend Option</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {growthVsIdcwExamples.map((fund, i) => (
-                      <tr key={i} className="border-b border-border/50">
-                        <td className="py-2 text-muted-foreground">{fund.name}</td>
-                        <td className="text-center py-2">
-                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                            fund.type === 'Growth' 
-                              ? 'bg-primary/20 text-primary' 
-                              : 'bg-info-cyan/20 text-info-cyan'
-                          }`}>
-                            {fund.type}
-                          </span>
-                        </td>
-                        <td className={`text-right py-2 font-medium ${
-                          fund.type === 'Growth' ? 'text-primary' : 'text-info-cyan'
-                        }`}>
-                          {fund.dividendOption}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* Try It Yourself */}
-            <div className="glass-card rounded-xl p-6 bg-accent/30">
-              <h3 className="font-semibold mb-4 flex items-center gap-2">
-                <HelpCircle className="w-5 h-5 text-info-cyan" />
-                Try It: Enter a Fund Name
-              </h3>
-              <div className="flex gap-3 mb-4">
-                <input
-                  type="text"
-                  value={testGrowthIdcwName}
-                  onChange={(e) => setTestGrowthIdcwName(e.target.value)}
-                  placeholder="e.g., HDFC Flexi Cap Fund Direct Growth"
-                  className="flex-1 px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
-                />
-                <button
-                  onClick={handleTestGrowthIdcw}
-                  className="px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
-                >
-                  Identify
-                </button>
-              </div>
-              {testGrowthIdcwResult && (
-                <div className={`p-4 rounded-lg ${
-                  testGrowthIdcwResult.type === 'Growth' 
-                    ? 'bg-primary/10 border border-primary/30' 
-                    : 'bg-info-cyan/10 border border-info-cyan/30'
-                }`}>
-                  <div className="flex items-center gap-2">
-                    {testGrowthIdcwResult.type === 'Growth' ? (
-                      <TrendingUp className="w-5 h-5 text-primary" />
-                    ) : (
-                      <Wallet className="w-5 h-5 text-info-cyan" />
-                    )}
-                    <span className="font-semibold">{testGrowthIdcwResult.type} Plan</span>
-                    {testGrowthIdcwResult.confidence === 'medium' && (
-                      <span className="text-xs text-muted-foreground">(assumed)</span>
-                    )}
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                {/* Direct Plan Card */}
+                <div className="glass-card rounded-xl p-6 border-2 border-secondary/50">
+                  <div className="flex items-center gap-2 mb-4">
+                    <CheckCircle2 className="w-6 h-6 text-secondary" />
+                    <h4 className="text-lg font-semibold">Direct Plan</h4>
+                    <span className="ml-auto text-xs px-2 py-1 rounded-full bg-secondary/20 text-secondary font-medium">Recommended</span>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    {testGrowthIdcwResult.type === 'Growth' 
-                      ? 'This is a Growth plan. Your profits are reinvested for maximum compounding. Best for long-term wealth creation!'
-                      : 'This is an IDCW plan. You receive periodic payouts from your investment. Best if you need regular income.'}
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex items-start gap-2">
+                      <span className="text-secondary font-bold">✓</span>
+                      <span>No distributor commission - you invest directly with AMC</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-secondary font-bold">✓</span>
+                      <span>Lower expense ratio (typically 0.5-1% less)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-secondary font-bold">✓</span>
+                      <span>Higher returns over long term due to lower fees</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-secondary font-bold">✓</span>
+                      <span>Same fund manager, same portfolio, same NAV timing</span>
+                    </li>
+                  </ul>
+                  <div className="mt-4 p-3 bg-secondary/10 rounded-lg">
+                    <p className="text-xs text-muted-foreground">
+                      <strong>How to identify:</strong> Look for "Direct", "Dir", or "Direct Plan" in the fund name
+                    </p>
+                  </div>
+                </div>
+
+                {/* Regular Plan Card */}
+                <div className="glass-card rounded-xl p-6 opacity-80">
+                  <div className="flex items-center gap-2 mb-4">
+                    <AlertTriangle className="w-6 h-6 text-warning-amber" />
+                    <h4 className="text-lg font-semibold">Regular Plan</h4>
+                    <span className="ml-auto text-xs px-2 py-1 rounded-full bg-warning-amber/20 text-warning-amber font-medium">Higher Fees</span>
+                  </div>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex items-start gap-2">
+                      <span className="text-warning-amber font-bold">→</span>
+                      <span>Includes distributor/advisor commission (0.5-1%)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-warning-amber font-bold">→</span>
+                      <span>Higher expense ratio eats into your returns</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-warning-amber font-bold">→</span>
+                      <span>Good if you need hand-holding from an advisor</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-warning-amber font-bold">→</span>
+                      <span>Same underlying fund, just with extra fees</span>
+                    </li>
+                  </ul>
+                  <div className="mt-4 p-3 bg-warning-amber/10 rounded-lg">
+                    <p className="text-xs text-muted-foreground">
+                      <strong>How to identify:</strong> If it doesn't say "Direct", it's Regular by default
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Direct vs Regular Examples */}
+              <div className="glass-card rounded-xl p-6 mb-6">
+                <h4 className="font-semibold mb-4 flex items-center gap-2">
+                  <Lightbulb className="w-5 h-5 text-warning-amber" />
+                  Real Fund Examples - Direct vs Regular
+                </h4>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="text-left py-2 font-medium">Fund Name</th>
+                        <th className="text-center py-2 font-medium">Type</th>
+                        <th className="text-right py-2 font-medium">Expense Ratio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {directVsRegularExamples.map((fund, i) => (
+                        <tr key={i} className="border-b border-border/50">
+                          <td className="py-2 text-muted-foreground">{fund.name}</td>
+                          <td className="text-center py-2">
+                            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                              fund.type === 'Direct' 
+                                ? 'bg-secondary/20 text-secondary' 
+                                : 'bg-muted text-muted-foreground'
+                            }`}>
+                              {fund.type}
+                            </span>
+                          </td>
+                          <td className={`text-right py-2 font-medium ${
+                            fund.type === 'Direct' ? 'text-secondary' : 'text-muted-foreground'
+                          }`}>
+                            {fund.expense}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Try It - Direct vs Regular */}
+              <div className="glass-card rounded-xl p-6 bg-accent/30">
+                <h4 className="font-semibold mb-4 flex items-center gap-2">
+                  <HelpCircle className="w-5 h-5 text-info-cyan" />
+                  Try It: Is it Direct or Regular?
+                </h4>
+                <div className="flex gap-3 mb-4">
+                  <input
+                    type="text"
+                    value={testFundName}
+                    onChange={(e) => setTestFundName(e.target.value)}
+                    placeholder="e.g., Axis Bluechip Direct Growth"
+                    className="flex-1 px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  />
+                  <button
+                    onClick={handleTestFund}
+                    className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+                  >
+                    Identify
+                  </button>
+                </div>
+                {testResult && (
+                  <div className={`p-4 rounded-lg ${
+                    testResult.type === 'Direct' 
+                      ? 'bg-secondary/10 border border-secondary/30' 
+                      : 'bg-warning-amber/10 border border-warning-amber/30'
+                  }`}>
+                    <div className="flex items-center gap-2">
+                      {testResult.type === 'Direct' ? (
+                        <CheckCircle2 className="w-5 h-5 text-secondary" />
+                      ) : (
+                        <AlertTriangle className="w-5 h-5 text-warning-amber" />
+                      )}
+                      <span className="font-semibold">{testResult.type} Plan</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      {testResult.type === 'Direct' 
+                        ? 'Great choice! This is a Direct plan with lower expense ratio. You save on distributor commission.'
+                        : 'This appears to be a Regular plan. Consider switching to Direct plan to save on fees.'}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="relative mb-12">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-border"></div>
+              </div>
+              <div className="relative flex justify-center">
+                <span className="bg-background px-4 text-sm text-muted-foreground">Next Decision</span>
+              </div>
+            </div>
+
+            {/* Growth vs IDCW Subsection */}
+            <div>
+              <div className="flex items-center gap-2 mb-6">
+                <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
+                  <span className="font-bold text-primary">2</span>
+                </div>
+                <h3 className="text-xl font-bold">Growth vs IDCW Plans</h3>
+                <span className="text-sm text-muted-foreground ml-2">Understanding dividend options</span>
+              </div>
+
+              {/* What is IDCW */}
+              <div className="glass-card rounded-xl p-6 mb-6">
+                <h4 className="font-semibold mb-4 flex items-center gap-2">
+                  <Info className="w-5 h-5 text-info-cyan" />
+                  What is IDCW?
+                </h4>
+                <p className="text-muted-foreground mb-4">
+                  <strong>IDCW</strong> stands for <strong>Income Distribution cum Capital Withdrawal</strong>. 
+                  Earlier called "Dividend" option, SEBI renamed it to IDCW in 2021 to clarify that payouts come from your own investment, 
+                  not as additional income like stock dividends.
+                </p>
+                <div className="p-4 bg-warning-amber/10 rounded-lg border border-warning-amber/30">
+                  <p className="text-sm text-muted-foreground">
+                    <strong className="text-warning-amber">Important:</strong> IDCW payouts are NOT additional earnings. 
+                    They are a portion of your invested capital being returned to you, which reduces your NAV proportionally.
                   </p>
                 </div>
-              )}
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                {/* Growth Plan Card */}
+                <div className="glass-card rounded-xl p-6 border-2 border-primary/50">
+                  <div className="flex items-center gap-2 mb-4">
+                    <TrendingUp className="w-6 h-6 text-primary" />
+                    <h4 className="text-lg font-semibold">Growth Plan</h4>
+                    <span className="ml-auto text-xs px-2 py-1 rounded-full bg-primary/20 text-primary font-medium">Recommended</span>
+                  </div>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary font-bold">✓</span>
+                      <span>All profits are reinvested - NAV keeps growing</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary font-bold">✓</span>
+                      <span>Power of compounding works fully for you</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary font-bold">✓</span>
+                      <span>Tax efficient - no tax until you redeem</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary font-bold">✓</span>
+                      <span>Better for wealth creation over long term</span>
+                    </li>
+                  </ul>
+                  <div className="mt-4 p-3 bg-primary/10 rounded-lg">
+                    <p className="text-xs text-muted-foreground">
+                      <strong>Ideal for:</strong> Long-term investors, wealth building, retirement planning, those who don't need regular income
+                    </p>
+                  </div>
+                </div>
+
+                {/* IDCW Plan Card */}
+                <div className="glass-card rounded-xl p-6 opacity-90">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Wallet className="w-6 h-6 text-info-cyan" />
+                    <h4 className="text-lg font-semibold">IDCW Plan</h4>
+                    <span className="ml-auto text-xs px-2 py-1 rounded-full bg-info-cyan/20 text-info-cyan font-medium">Regular Payouts</span>
+                  </div>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex items-start gap-2">
+                      <span className="text-info-cyan font-bold">→</span>
+                      <span>Periodic payouts from your investment (not extra income)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-info-cyan font-bold">→</span>
+                      <span>NAV reduces after each payout</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-info-cyan font-bold">→</span>
+                      <span>Payouts are taxed at your income tax slab</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-info-cyan font-bold">→</span>
+                      <span>Two sub-options: Payout (cash) or Reinvestment (buy more units)</span>
+                    </li>
+                  </ul>
+                  <div className="mt-4 p-3 bg-info-cyan/10 rounded-lg">
+                    <p className="text-xs text-muted-foreground">
+                      <strong>Ideal for:</strong> Retirees needing regular income, those who want periodic cash flow from investments
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Growth vs IDCW Comparison Table */}
+              <div className="glass-card rounded-xl p-6 mb-6">
+                <h4 className="font-semibold mb-4 flex items-center gap-2">
+                  <Scale className="w-5 h-5 text-secondary" />
+                  Quick Comparison
+                </h4>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="text-left py-2 font-medium">Feature</th>
+                        <th className="text-center py-2 font-medium text-primary">Growth</th>
+                        <th className="text-center py-2 font-medium text-info-cyan">IDCW</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-border/50">
+                        <td className="py-2 text-muted-foreground">Profits</td>
+                        <td className="text-center py-2 text-primary">Reinvested</td>
+                        <td className="text-center py-2 text-info-cyan">Distributed periodically</td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-2 text-muted-foreground">NAV Trend</td>
+                        <td className="text-center py-2 text-primary">Keeps increasing</td>
+                        <td className="text-center py-2 text-info-cyan">Resets after payout</td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-2 text-muted-foreground">Taxation</td>
+                        <td className="text-center py-2 text-primary">On redemption only</td>
+                        <td className="text-center py-2 text-info-cyan">On each payout + redemption</td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-2 text-muted-foreground">Compounding</td>
+                        <td className="text-center py-2 text-primary">Full benefit</td>
+                        <td className="text-center py-2 text-info-cyan">Interrupted by payouts</td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-2 text-muted-foreground">Regular Income</td>
+                        <td className="text-center py-2 text-primary">No</td>
+                        <td className="text-center py-2 text-info-cyan">Yes (Payout option)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* How to Identify Growth vs IDCW */}
+              <div className="glass-card rounded-xl p-6 mb-6">
+                <h4 className="font-semibold mb-4 flex items-center gap-2">
+                  <HelpCircle className="w-5 h-5 text-secondary" />
+                  How to Identify Growth vs IDCW?
+                </h4>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-4 bg-primary/10 rounded-xl">
+                    <h5 className="font-medium mb-2 text-primary">Growth Fund Names</h5>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Contains "Growth" or "Gr"</li>
+                      <li>• Example: "HDFC Flexi Cap Fund <strong>Growth</strong>"</li>
+                      <li>• Example: "SBI Bluechip <strong>Gr</strong>"</li>
+                      <li>• If no mention, usually Growth by default</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-info-cyan/10 rounded-xl">
+                    <h5 className="font-medium mb-2 text-info-cyan">IDCW Fund Names</h5>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Contains "IDCW", "Dividend", or "Div"</li>
+                      <li>• May say "IDCW Payout" or "IDCW Reinvestment"</li>
+                      <li>• Example: "Axis Midcap <strong>IDCW</strong>"</li>
+                      <li>• Older funds may still say "Dividend"</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Growth vs IDCW Examples */}
+              <div className="glass-card rounded-xl p-6 mb-6">
+                <h4 className="font-semibold mb-4 flex items-center gap-2">
+                  <Lightbulb className="w-5 h-5 text-warning-amber" />
+                  Real Fund Examples - Growth vs IDCW
+                </h4>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="text-left py-2 font-medium">Fund Name</th>
+                        <th className="text-center py-2 font-medium">Type</th>
+                        <th className="text-right py-2 font-medium">Dividend Option</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {growthVsIdcwExamples.map((fund, i) => (
+                        <tr key={i} className="border-b border-border/50">
+                          <td className="py-2 text-muted-foreground">{fund.name}</td>
+                          <td className="text-center py-2">
+                            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                              fund.type === 'Growth' 
+                                ? 'bg-primary/20 text-primary' 
+                                : 'bg-info-cyan/20 text-info-cyan'
+                            }`}>
+                              {fund.type}
+                            </span>
+                          </td>
+                          <td className={`text-right py-2 font-medium ${
+                            fund.type === 'Growth' ? 'text-primary' : 'text-info-cyan'
+                          }`}>
+                            {fund.dividendOption}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Try It - Growth vs IDCW */}
+              <div className="glass-card rounded-xl p-6 bg-accent/30">
+                <h4 className="font-semibold mb-4 flex items-center gap-2">
+                  <HelpCircle className="w-5 h-5 text-info-cyan" />
+                  Try It: Is it Growth or IDCW?
+                </h4>
+                <div className="flex gap-3 mb-4">
+                  <input
+                    type="text"
+                    value={testGrowthIdcwName}
+                    onChange={(e) => setTestGrowthIdcwName(e.target.value)}
+                    placeholder="e.g., HDFC Flexi Cap Fund Direct Growth"
+                    className="flex-1 px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  />
+                  <button
+                    onClick={handleTestGrowthIdcw}
+                    className="px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                  >
+                    Identify
+                  </button>
+                </div>
+                {testGrowthIdcwResult && (
+                  <div className={`p-4 rounded-lg ${
+                    testGrowthIdcwResult.type === 'Growth' 
+                      ? 'bg-primary/10 border border-primary/30' 
+                      : 'bg-info-cyan/10 border border-info-cyan/30'
+                  }`}>
+                    <div className="flex items-center gap-2">
+                      {testGrowthIdcwResult.type === 'Growth' ? (
+                        <TrendingUp className="w-5 h-5 text-primary" />
+                      ) : (
+                        <Wallet className="w-5 h-5 text-info-cyan" />
+                      )}
+                      <span className="font-semibold">{testGrowthIdcwResult.type} Plan</span>
+                      {testGrowthIdcwResult.confidence === 'medium' && (
+                        <span className="text-xs text-muted-foreground">(assumed)</span>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      {testGrowthIdcwResult.type === 'Growth' 
+                        ? 'This is a Growth plan. Your profits are reinvested for maximum compounding. Best for long-term wealth creation!'
+                        : 'This is an IDCW plan. You receive periodic payouts from your investment. Best if you need regular income.'}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Summary Card */}
+            <div className="glass-card rounded-xl p-6 mt-8 bg-gradient-to-r from-secondary/10 to-primary/10 border border-secondary/30">
+              <h4 className="font-semibold mb-4 flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-secondary" />
+                Recommended Choice for Most Investors
+              </h4>
+              <div className="flex flex-wrap gap-4">
+                <div className="flex items-center gap-2 px-4 py-2 bg-secondary/20 rounded-full">
+                  <CheckCircle2 className="w-4 h-4 text-secondary" />
+                  <span className="font-medium text-secondary">Direct Plan</span>
+                </div>
+                <span className="text-muted-foreground">+</span>
+                <div className="flex items-center gap-2 px-4 py-2 bg-primary/20 rounded-full">
+                  <TrendingUp className="w-4 h-4 text-primary" />
+                  <span className="font-medium text-primary">Growth Option</span>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mt-4">
+                For long-term wealth creation, choose <strong>Direct Growth</strong> plans. You save on fees and let compounding work its magic!
+              </p>
             </div>
           </div>
         </div>

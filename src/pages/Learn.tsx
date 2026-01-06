@@ -420,17 +420,17 @@ export default function Learn() {
             <a href="#what-is-mutual-fund" className="px-4 py-2 rounded-full bg-primary/20 hover:bg-primary/30 text-sm font-medium transition-colors border border-primary/30">
               🎯 What is Mutual Fund?
             </a>
+            <a href="#glossary" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
+              📖 MF Glossary
+            </a>
+            <a href="#fund-categories" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
+              📂 Fund Categories
+            </a>
             <a href="#understanding-mf-plans" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
-              Understanding MF Plans
+              ⚖️ Understanding MF Plans
             </a>
             <a href="#index-funds" className="px-4 py-2 rounded-full bg-secondary/20 hover:bg-secondary/30 text-sm font-medium transition-colors border border-secondary/30">
               📊 Index Funds
-            </a>
-            <a href="#glossary" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
-              MF Glossary
-            </a>
-            <a href="#fund-categories" className="px-4 py-2 rounded-full bg-accent hover:bg-accent/80 text-sm font-medium transition-colors">
-              Fund Categories
             </a>
           </div>
         </div>
@@ -601,6 +601,145 @@ export default function Learn() {
                   <strong>Bottom line:</strong> Anyone who wants their money to grow faster than FDs and beat inflation should consider mutual funds!
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Glossary Section */}
+      <section id="glossary" className="py-12 md:py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <BookOpen className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold">Mutual Fund Glossary</h2>
+                <p className="text-sm text-muted-foreground">Key terms explained in simple language</p>
+              </div>
+            </div>
+
+            <Accordion type="single" collapsible className="space-y-3">
+              {glossaryTerms.map((item, index) => (
+                <AccordionItem 
+                  key={item.term} 
+                  value={item.term}
+                  className="glass-card rounded-xl border-none"
+                >
+                  <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-10 h-10 rounded-lg ${item.bgColor} flex items-center justify-center`}>
+                        <item.icon className={`w-5 h-5 ${item.color}`} />
+                      </div>
+                      <span className="font-semibold text-left">{item.term}</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-6">
+                    <div className="space-y-4 pl-13">
+                      <div>
+                        <h4 className="text-sm font-medium text-primary mb-1">What is it?</h4>
+                        <p className="text-sm text-muted-foreground">{item.definition}</p>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-medium text-secondary mb-1">Why does it matter?</h4>
+                        <p className="text-sm text-muted-foreground">{item.whyItMatters}</p>
+                      </div>
+                      <div className="p-4 bg-accent/50 rounded-lg">
+                        <h4 className="text-sm font-medium mb-1 flex items-center gap-2">
+                          <Lightbulb className="w-4 h-4 text-warning-amber" />
+                          Simple Example
+                        </h4>
+                        <p className="text-sm text-muted-foreground">{item.example}</p>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* Fund Categories Section */}
+      <section id="fund-categories" className="py-12 md:py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Shield className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold">SEBI Fund Categories</h2>
+                <p className="text-sm text-muted-foreground">Understanding equity mutual fund types</p>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              {fundCategories.map((category, index) => (
+                <div 
+                  key={category.name}
+                  className={`glass-card rounded-2xl p-6 border-l-4 ${category.borderColor}`}
+                >
+                  <div className="flex flex-col lg:flex-row gap-6">
+                    {/* Left Column */}
+                    <div className="lg:w-2/3">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className={`w-12 h-12 rounded-xl ${category.bgColor} flex items-center justify-center`}>
+                          <category.icon className={`w-6 h-6 ${category.color}`} />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold">{category.name}</h3>
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${category.bgColor} ${category.color}`}>
+                            Risk: {category.riskLevel}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div className="p-4 bg-accent/50 rounded-xl border border-primary/10">
+                          <div className="flex items-start gap-2 mb-2">
+                            <Shield className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                            <span className="font-semibold text-primary text-sm">SEBI Definition</span>
+                          </div>
+                          <p className="text-sm text-muted-foreground">{category.sebiDefinition}</p>
+                        </div>
+
+                        <div className="p-4 bg-muted/50 rounded-xl">
+                          <div className="flex items-start gap-2 mb-2">
+                            <Info className="w-5 h-5 text-info-cyan flex-shrink-0 mt-0.5" />
+                            <span className="font-semibold text-sm">Simple Explanation</span>
+                          </div>
+                          <p className="text-sm text-muted-foreground">{category.example}</p>
+                        </div>
+
+                        <div>
+                          <span className="text-sm font-medium text-muted-foreground">Suitable For: </span>
+                          <span className="text-sm">{category.suitableFor}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right Column - Key Points */}
+                    <div className="lg:w-1/3">
+                      <div className="p-4 bg-card rounded-xl border border-border h-full">
+                        <h4 className="font-semibold mb-3 flex items-center gap-2 text-sm">
+                          <CheckCircle2 className="w-4 h-4 text-secondary" />
+                          Key Points
+                        </h4>
+                        <ul className="space-y-2">
+                          {category.keyPoints.map((point, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm">
+                              <div className="w-1.5 h-1.5 rounded-full bg-secondary mt-2 flex-shrink-0" />
+                              <span className="text-muted-foreground">{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -1208,145 +1347,6 @@ export default function Learn() {
                   <p className="text-xs text-muted-foreground">5+ year horizon? Index funds are perfect for wealth building.</p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Glossary Section */}
-      <section id="glossary" className="py-12 md:py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold">Mutual Fund Glossary</h2>
-                <p className="text-sm text-muted-foreground">Key terms explained in simple language</p>
-              </div>
-            </div>
-
-            <Accordion type="single" collapsible className="space-y-3">
-              {glossaryTerms.map((item, index) => (
-                <AccordionItem 
-                  key={item.term} 
-                  value={item.term}
-                  className="glass-card rounded-xl border-none"
-                >
-                  <AccordionTrigger className="px-6 py-4 hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-lg ${item.bgColor} flex items-center justify-center`}>
-                        <item.icon className={`w-5 h-5 ${item.color}`} />
-                      </div>
-                      <span className="font-semibold text-left">{item.term}</span>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-6">
-                    <div className="space-y-4 pl-13">
-                      <div>
-                        <h4 className="text-sm font-medium text-primary mb-1">What is it?</h4>
-                        <p className="text-sm text-muted-foreground">{item.definition}</p>
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-medium text-secondary mb-1">Why does it matter?</h4>
-                        <p className="text-sm text-muted-foreground">{item.whyItMatters}</p>
-                      </div>
-                      <div className="p-4 bg-accent/50 rounded-lg">
-                        <h4 className="text-sm font-medium mb-1 flex items-center gap-2">
-                          <Lightbulb className="w-4 h-4 text-warning-amber" />
-                          Simple Example
-                        </h4>
-                        <p className="text-sm text-muted-foreground">{item.example}</p>
-                      </div>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </section>
-
-      {/* Fund Categories Section */}
-      <section id="fund-categories" className="py-12 md:py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Shield className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold">SEBI Fund Categories</h2>
-                <p className="text-sm text-muted-foreground">Understanding equity mutual fund types</p>
-              </div>
-            </div>
-
-            <div className="space-y-8">
-              {fundCategories.map((category, index) => (
-                <div 
-                  key={category.name}
-                  className={`glass-card rounded-2xl p-6 border-l-4 ${category.borderColor}`}
-                >
-                  <div className="flex flex-col lg:flex-row gap-6">
-                    {/* Left Column */}
-                    <div className="lg:w-2/3">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className={`w-12 h-12 rounded-xl ${category.bgColor} flex items-center justify-center`}>
-                          <category.icon className={`w-6 h-6 ${category.color}`} />
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-bold">{category.name}</h3>
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${category.bgColor} ${category.color}`}>
-                            Risk: {category.riskLevel}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="space-y-4">
-                        <div className="p-4 bg-accent/50 rounded-xl border border-primary/10">
-                          <div className="flex items-start gap-2 mb-2">
-                            <Shield className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                            <span className="font-semibold text-primary text-sm">SEBI Definition</span>
-                          </div>
-                          <p className="text-sm text-muted-foreground">{category.sebiDefinition}</p>
-                        </div>
-
-                        <div className="p-4 bg-muted/50 rounded-xl">
-                          <div className="flex items-start gap-2 mb-2">
-                            <Info className="w-5 h-5 text-info-cyan flex-shrink-0 mt-0.5" />
-                            <span className="font-semibold text-sm">Simple Explanation</span>
-                          </div>
-                          <p className="text-sm text-muted-foreground">{category.example}</p>
-                        </div>
-
-                        <div>
-                          <span className="text-sm font-medium text-muted-foreground">Suitable For: </span>
-                          <span className="text-sm">{category.suitableFor}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right Column - Key Points */}
-                    <div className="lg:w-1/3">
-                      <div className="p-4 bg-card rounded-xl border border-border h-full">
-                        <h4 className="font-semibold mb-3 flex items-center gap-2 text-sm">
-                          <CheckCircle2 className="w-4 h-4 text-secondary" />
-                          Key Points
-                        </h4>
-                        <ul className="space-y-2">
-                          {category.keyPoints.map((point, i) => (
-                            <li key={i} className="flex items-start gap-2 text-sm">
-                              <div className="w-1.5 h-1.5 rounded-full bg-secondary mt-2 flex-shrink-0" />
-                              <span className="text-muted-foreground">{point}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>
